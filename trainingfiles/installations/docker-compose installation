@@ -1,0 +1,5 @@
+  33  curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+   34  sudo chmod +x /usr/local/bin/docker-compose
+   35  sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+   36  docker-compose --version
+  

@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  application:
+    build:
+      context: .
+      dockerfile: ./frontend.df
+    image: santhosh127/glogic2:php1
+    container_name: fphp
+    ports:
+    - "9095:80"
+    volumes:
+    - "/data:/var/www/html"
+    networks:
+      net2:
+         ipv4_address: 12.12.0.13
+    depends_on:
+    - database
+  database:
+    build:
+      context: .
+      dockerfile: ./backend.df
+    image: santhosh127/glogic2:db1
+    container_name: bdb
+    networks:
+      net2:
+        ipv4_address: 12.12.0.12
+    ports:
+    - "3306:3306"
+    environment:
+    - MYSQL_ROOT_PASSWORD=123
+networks:
+  net2:
+    driver: bridge
+   ipam:
+      driver: default
+      config:
+        - subnet: 12.12.0.0/24
+          gateway: 12.12.0.1

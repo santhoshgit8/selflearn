@@ -1,0 +1,67 @@
+VI/VIM EDITOR:-
+***************
+#vi <filename>
+ex:#vi f1
+
+#yum install vim --> to install vim editor
+
+#vim <filename>
+ex:#vim f2
+
+3 modes:-
+*********
+1)insert mode
+2)command mode
+3)colon mode
+
+1)insert mode:-
+****************
+esc+i --> to enter into insert mode.
+esc+shift+i --> moves the cursor to present line first position.
+esc+shift+a --> moves the cursor to present line last postion.
+esc+o --> creates a new line below the present line & enters into insert mode.
+esc+shift+o --> creates a new line above the present line & enters into insert mode.
+ 
+2)command mode:-
+***************
+esc+j --> it moves the cursor downwards in the same position.
+esc+k --> it moves the cursor upwards in the same position.
+esc+x --> to delete a single character.
+esc+Nx -->to delete N number of characters(N is a natural number).
+esc+dw --> to delete a complete word from the present position.
+esc+Ndw --> to delete multiple words from the present position.
+esc+dd --> to delete the particular line where my cursor is present.
+esc+Ndd -->to delete N number of lines from the present line.
+esc+u --> undo the changes( deleted characters,words,lines).
+esc+shift+h --> to move the cursor to the first line first position.
+esc+shift+g --> to move the cursor to the last line first position.
+esc+yw --> to copy a word from present position.
+esc+Nyw --> to copy N number of words  at a time from present position.
+esc+p --> to paste the copied content(word,line).
+esc+yy --> to copy the complete line where my cursor is present.
+esc+Nyy --> to copy multiple lines from my present line.
+esc+w --> to move the cursot to next word first position.
+esc+b --> to move the cursor to previous word first position.
+esc+e --> to move the cursor to same word last position.
+esc+shift+~ --> to change the character to uppercase or viceversa.
+
+3)colon mode:-
+***************
+esc+shift+: --> to enter into colon mode.
+esc+shift+: set nu --> to set a index numbers to all lines.
+esc+shift+: set nonu --> to remove index numbers of all lines.
+esc+shift+: Nd --> to delete a line using its index number.
+esc+shift+: n,Nd --> to delete line starting from 'n' & ending with 'N'.
+esc+shift+: n co N --> to copy the lines from 'n' to 'N'.
+esc+shift+: 1,10 co 11 --> to copy lines starting from 1 to 10 & paste it in 11 line.
+esc+shift+:w --> to save the content or data added.
+esc+shift+:q --> to quit the vi editor without saving.
+esc+shhift+q! --> to quit forcefully.
+esc+shift+:wq --> to save & quit.
+esc+shift+: wq! --> to save & quit forcefully. 
+
+
+
+
+
+ 

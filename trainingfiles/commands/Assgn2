@@ -1,0 +1,22 @@
+
+ kubectl create namespace google
+  191  kubectl create deployment app1 --image=kharatramesh/k8s_rollaback:webv1.0 --replicas=3 -n google
+  192  kubectl get pods -n google
+  193  kubectl expose deployment/app1 --type=NodePort --port=80 -n google
+  194  kubectl get svc -n google
+  195  kubectl get service -n google
+       kubectl describe deployment app1 -n google
+  207  kubectl --record deployment/app1 set image deployment/app1  k8s-rollaback-jbv6p=kharatramesh/k8s_rollaback:webv2.0 -n google
+  208  kubectl --record deployment/app1 set image deployment/app1  k8s-rollaback-jbv6p=kharatramesh/k8s_rollaback:webv3.0 -n google
+  209  kubectl --record deployment/app1 set image deployment/app1  k8s-rollaback-jbv6p=kharatramesh/k8s_rollaback:webv4.0 -n google
+        kubectl get rs -n google
+         kubectl rollout history deployment/app1 -n google
+
+ kubectl get rs -n googlee
+  213  kubectl get rs -n google
+  214  kubectl rollout history deployment/app1 -n google
+  215  kubectl rollout undo deployment/app1 --to-revision=2 -n google
+  216  kubectl get rs -n google
+  217  kubectl rollout history deployment/app1 -n google
+  218  kubectl rollout undo deployment/app1 --to-revision=1 -n google
+  219  kubectl get rs -n google

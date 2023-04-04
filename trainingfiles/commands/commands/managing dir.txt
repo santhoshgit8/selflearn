@@ -1,0 +1,126 @@
+
+#yum install usbutils --> to run lsusb command u should install this package.
+
+#yum install lshw --> to run lshw u hv to install this package.
+
+
+managing directories:-
+**********************
+normal dir:-
+************
+#mkdir <dir name> --> to create a new dir.
+ex: #mkdir d1
+
+#mkdir <dir name1> <dir name2> --> to create multiple dir's.
+ex:#mkdir d2 d3
+
+#mkdir d{4..10} --> to create dir's in series.
+
+hidden dir:-
+************
+
+#mkdir .<dir name> --> to create a hidden dir.
+ex:#mkdir .zafar
+
+#mkdir .<dir name1> .<dir name2> --> creating mutiple hidden dir.
+ex:#mkdir .zafar1 .zafar2
+
+#mkdir .zafar{3..10} --> to create a series of hidden dir's.
+
+recurssive dir:-
+****************
+#mkdir -p <dirname>/<sub dirname> --> to create a dir & sub dir at a  time.
+ex:#mkdir -p rajesh/a1
+
+
+changing directory(cd):-
+********************
+#cd --> to change the dir to home dir of perticular user.
+
+ex:1)[root@localhost /etc]#cd 
+     [root@localhost ~]#     (~ -->/root)
+
+   2)[zafar@localhost /]#cd
+     [zafar@localhost ~]#     (~ -->/home/zafar)
+
+#cd .. --> to change the dir to its parent dir.
+
+ex:[root@localhost ~]#cd rajesh
+   [root@localhost rajesh]#cd a1
+   [root@localhost a1]#pwd
+     /root/rajesh/a1
+   [root@localhost a1]#cd ..
+   [root@localhost rajesh]#pwd
+     /root/rajesh
+   [root@localhost rajesh]#cd ..
+   [root@localhost ~]#pwd
+     /root
+   [root@localhost ~]#cd ..
+   [root@localhost /]#pwd
+     /
+
+#cd ../.. --> changing a dir to its parents parent dir.
+
+REMOVE FILE/DIR:-
+*****************
+file:-
+#rm -f <filename> --> to delete a file
+ex:#rm -f f1
+
+#rm -f <filename1> <filename2> --> to delete multiple files.
+ex:#rm -f f2 f3
+
+#rm -f f{4..10} -->to delete a series of files.
+
+dir:-
+*****
+
+#rm -rf <dir name> --> to delete a dir.
+ex:#rm -rf d1 
+
+#rm -rf <dir name1> <dir name2> --> to delete multiple dir.
+ex:#rm -rf d2 d3
+
+#rm -rf d{4..10} --> to delete multiple dir's.
+
+#rm -rf <absolute path> --> to delete a dir using its path
+ex:#rm -rf /mnt/g1
+
+#rm -rf d* --> to delete all the dir's starting from 'd' letter.
+
+#rm -rf * --> to delete all the files in my pwd.
+
+
+copying a file/dir(cp):-
+************************
+
+#cp <source path> <destination path> --> to copy a file/dir.
+file:-
+******
+ex:#cp f1 /mnt   (or) #cp /root/f1 /mnt --> to chnage the dir using relative & absolute path respectively.
+
+   #cp f1 /mnt/f2 --> copy a file and change the name of destination file.
+
+dir:-
+*****
+ex:#cp -R d1 /tmp   (or) #cp -R /root/d1 /tmp --> to copy a dir using relative & absolute path respectively.
+
+   #cp -R d1 /tmp/z1  (or) #cp -R /root/d1 /tmp/z1 --> to copy a dir and change the name of dir after copying.
+
+moving file/dir(mv):-
+*********************
+#mv <source path> <destination path> --> to move a file from sorce path to dest path.
+
+ex:#mv f1 /tmp --> move a file/dir.
+   #mv f2 /tmp/z2 --> move a file/dir & change dest name.
+   #mv zafar zaf --> to change the file/dir name in pwd.
+      
+
+
+ 
+
+
+
+
+
+

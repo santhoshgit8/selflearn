@@ -1,0 +1,144 @@
+package management:-
+*******************
+package:-
+********
+it is a collection of software files used to install a application or product.
+
+package manager:-
+****************
+it is the utility to manage the package like install,uninstalling & updating packages.
+
+-> we have package utilities.
+
+1) RPM (redhat package manager)
+2) YUM 	(yellow dog update manager)
+
+
+1)RPM:-
+*******
+-> it is a default package manager in redhat os.
+
+-> in rpm we can just install the packages which have .rpm extension
+
+-> rpm is insatlled in /var/lib/rpm directory.
+
+-> rpm log files are stored in /var/log/yum.log file.
+
+
+understanding pkg naming architecture:-
+**************************************
+
+<package name>		<version>	<release>	<architecture>	.rpm (extension)
+
+nfs-utils		-2.4.6		-8.el8		.x86_64		.rpm
+
+
+note:-
+*****
+rpm is internally classsified into 3 components:
+
+1) files installed by rpm.
+
+2) info about a package metadata.(name,version,release,architecture)
+
+3) scripts may run while the package is installed,uninstalled,updated.
+
+
+
+command of rpm:-
+*****************
+
+
+#rpm -ivh  <package name with .rpm extension>
+
+-i -> install
+-v -> verbose
+-h -> hash prompt
+
+ex: #rpm -ivh 
+
+#rpm -q <package name> 
+
+-q -> query package
+
+#rpm -qa 
+
+-qa  --> to lista all packages installed.
+
+#rpm -qa | wc -l  ---> to list number of packages installed.
+
+#rpm -e <package name> 
+
+-e -> uninstalling pkg
+
+#rpm -qi <package name> 
+
+-i -> info about pkg
+
+#rpm -qc <pkg name> 
+
+-c --> configuration files
+
+
+#rpm -ql <pkg name> 
+
+-l -> list pkg related files.
+
+#rpm -U <pkg name> 
+
+-U -> updating the pkg
+
+#rpm -ivh <pkg name>  --nodeps
+
+ex: #rpm -ivh zip-3.0-23.el8.x86_64.rpm  --nodeps
+
+
+2)yum:-
+*******
+-> this is also a default pkg managing utility in linux.
+
+-> it is used to install,update & remove the pkgs.
+
+-> yum uses repository to manage rpm files.
+
+-> a repository is a collection of rpm files.
+
+-> repositories can be configured either local or using ftp/http.
+
+-> yum also installs all the dependencies required but rpm does it.
+
+-> yum config file /etc/yum.conf
+
+-> repository files are stored under /etc/yum.repos.d
+
+-> creating a repository
+
+#cd /etc/yum.repos.d
+
+#vim first.repo
+
+[1234]  -> repo id
+
+name=app repo   
+baseurl= file:///rpms/AppStream/Packages
+enabled=1
+gpgcheck=0
+
+:wq!
+
+
+#yum clean all    ---> to clean all junk files.
+
+#yum repolist   --> to list all available repositories.
+
+#yum repolist all  --> to list all the repos with its state.
+
+#yum install <pkg name>   --> to install a pkg
+
+#yum update <pkg name>  --> to update a pkg using yum.
+
+#yum remove <pkg name>   --> to uninstall a pkg
+
+
+
+

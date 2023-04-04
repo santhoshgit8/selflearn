@@ -1,0 +1,17 @@
+---
+  - name : Installing httpd
+    hosts: web
+    tasks:
+      - name: Installing httpd on Nodes
+        yum:
+          name: httpd
+          state: prsent
+      - name: start the httpd service
+        service:
+          name: httpd
+          state: started
+          enabled: yes
+      - name: Create Content
+        copy:
+          src: /root/playbooks/index1.html
+          dest: /var/www/ml/index.html

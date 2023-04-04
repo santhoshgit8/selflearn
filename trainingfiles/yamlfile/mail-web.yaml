@@ -1,0 +1,44 @@
+---
+- name : Setting up Mail Server & Webserver
+  hosts : web
+  vars :
+    mail_pkg : dovecot
+    web_pkg : httpd
+    firewall_pkg : firewalld
+    mail_service : dovecot
+    web_service : httpd
+    firewall_service : firewalld
+    rule : http
+  tasks :
+  - name : Installing Mail, Webserver and Firewall packages
+    yum :
+      name :
+        - "{{ mail_pkg }}"
+        - "{{ web_pkg }}"
+        - "{{ firewall_pkg }}"
+      state: latest
+  - name : Ensuring Firewall Service is Started
+    service:
+      name: "{{ firewall_service }}"
+      state: started
+      enabled: true
+  - name : Ensuring Apache Service is Started
+    service :
+      name : "{{ web_server }}"
+      state : starte
+      enabled : true
+  - name : Defining Index.html file
+    copy :
+      content : "Setting up webserver from the Scratch"
+      dest : /var/www/html/index.html
+  - name : Ensuring Dovecot service is UP
+    service :
+      name : "{{ mail_service }}"
+      state : started
+      enabled : true
+  - name : Adding http to Firewall Rule
+    firewalld :
+      service : "{{ rule }}"
+      permanent : true
+      immediate : true
+      state : enabled

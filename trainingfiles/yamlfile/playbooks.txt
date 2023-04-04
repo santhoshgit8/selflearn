@@ -1,0 +1,155 @@
+[root@master playbooks]# su admin
+[admin@master playbooks]$ cd
+[admin@master ~]$ ls
+deploy
+[admin@master ~]$ cd deploy/
+[admin@master deploy]$ ls
+ansible.cfg  fact.yml     handler.yml   hostvar.yml  package.yml  var
+copy.yml     globvar.yml  hostvari.yml  inventory    user.yaml
+[admin@master deploy]$ cat user.yaml 
+---
+- name: sample
+  hosts: all
+  tasks:
+    - name: creating user
+      user:
+        name: santosh
+        state: present
+
+[admin@master deploy]$ cat package.yml 
+---
+- name: gameplay
+  hosts: all
+  tasks:
+  - name: creating user
+    user:
+      name: vigy
+      state: present
+    tags: creating for global
+  - name: installing package
+    yum:
+      name: httpd
+      state: present
+[admin@master deploy]$ cat copy.yml 
+---
+- name: joyplay
+  hosts: webserver
+  tasks:
+  - name: create user
+    user:
+      name: vignesh
+      state: present
+- name: gameplay
+  hosts: all
+  tasks:
+  - name: copy of file
+    copy:
+      src: /etc/hosts
+      dest: /tmp
+[admin@master deploy]$ 
+[admin@master deploy]$ cat fact
+cat: fact: No such file or directory
+[admin@master deploy]$ cat fact.yml 
+---      
+- name: testing facts
+  hosts: all
+  tasks: 
+  - name: to know info
+    debug:
+      msg: it means separator 
+        the fqdn is "{{ ansible_fqdn }}"
+        the default ip address "{{ ansible_default_ipv4.address }}"
+[admin@master deploy]$ cat hostvar.yml 
+--- 
+- name: playgood
+  hosts: all
+  vars:
+    pkg1: httpd
+    srv1: httpd
+  tasks:
+  - name: installing package
+    yum:
+      name: "{{ pkg1 }}"
+      state: present
+  - name: installing service
+    service:
+      name: "{{ srv1 }}"
+      state: started
+      enabled: yes
+[admin@master deploy]$ cat var 
+pkg1: httpd
+srv1: httpd
+user1: admin
+file1: /f1
+
+[admin@master deploy]$ cat globvar.yml 
+---
+- name: superplay
+  hosts: all
+  tasks:
+  - name: variable file
+    include_vars: /home/admin/deploy/var
+  - name: installing package
+    yum:
+      name: "{{ pkg1 }}"
+      state: present
+  - name: installing service
+    service:
+      name: "{{ srv1 }}"
+      state: started
+      enabled: yes
+  - name: creating user
+    user:
+      name: "{{ user1 }}"
+      state: present
+  - name: creating file
+    file:
+      dest: "{{ file1 }}"       
+      state: touch
+
+[admin@master deploy]$ ls
+ansible.cfg  copy.yml  fact.yml  globvar.yml  handler.yml  hostvari.yml  hostvar.yml  inventory  package.yml  user.yaml  var
+[admin@master deploy]$ cat hostvari.yml 
+--- 
+- name: playgood
+  hosts: all
+  tasks:
+  - name: installing package
+    yum:
+      name: "{{ pkg1 }}"
+      state: present
+  - name: installing service
+    service:
+      name: "{{ srv1 }}"
+      state: started
+      enabled: yes
+[admin@master deploy]$ cat handler.yml 
+---
+- name: demo task
+  hosts: all
+  tasks:
+  - name: installing the package
+    yum:
+      name: vsftpd
+      state: absent
+    notify:
+    - restarting the service
+  handlers:
+  - name: restarting the service
+    service:
+      name: vsftpd
+      state: restarted
+[admin@master deploy]$ ls
+ansible.cfg  copy.yml  fact.yml  globvar.yml  handler.yml  hostvari.yml  hostvar.yml  inventory  package.yml  user.yaml  var
+[admin@master deploy]$ cat ansible.cfg 
+[defaults]
+remote_user = admin
+inventory = /home/admin/deploy/inventory
+[privilege_escalation]
+become_method = sudo
+become_user = root
+become_ask_pass = False
+
+[admin@master deploy]$ cat inventory 
+[webserver]
+192.168.239.135 pkg1=vsftpd srv1=vsftpd

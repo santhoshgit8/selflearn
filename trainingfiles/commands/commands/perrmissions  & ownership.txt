@@ -1,0 +1,134 @@
+Access permissions:-
+********************
+read --> r --> 4
+write --> w -->2
+execute --> x -->1
+
+-	rw-	r--	r--	root	root---- ---- ----- <filename> 
+file	user	group	others	user    group 
+                                owner   owner
+
+d	rwx	r-x	r-x	root 	root --- ----- ----- <dir name>
+dir 	user	group 	others	user	group
+                                owner	owner
+
+
+#ls -l 
+
+-rw-r--r-- 1 root root <modification date&time> <filename> 
+
+drwxr-xr-x 2 root root <modification date & time> <dir name>
+
+
+dir --> rwx -->777 --> rwxr-xr-x
+file --> rw- -->644 -->rw-r--r--
+
+umask(user mask):-
+******************
+changing a file/dir permissions before creating them.
+
+max perm for file is 666
+max perm for dir is 777
+
+default perm for file as a root user is 644
+default perm for dir as a root user is 755
+
+default umask value of root user is '022'
+default umask value for normal user is '002'
+
+#umask --> to identify umask value.
+
+root user:-
+***********
+max perm for file -->  666 
+umask value of root--> 022
+(-)
+=========================================
+default perm of file -> 644  (rw-r--r--)
+=========================================
+
+
+normal users:-
+**************
+max perm for file --> 		666
+umask value of normal user -->	002
+(-)
+================================================
+default perm for file is --> 	664  (rw-rw-r--)
+================================================
+
+method of changing umask value:-
+*********************************
+1)temperary:-
+*************
+#umask
+
+#umask <umask value> --> to change umask value temperraly
+ex:#umask 000
+
+#umask --> to check umask value.
+
+2)permanent :-
+**************
+--> cconfig file for umask is located in /etc/bashrc
+
+#vim /etc/bashrc
+
+75th line to change umask value of normal user --> 002
+
+77th line to change umask value of root user --> 022
+
+:wq!
+
+#exec bash 
+
+(or) 
+
+#reboot
+
+changing file/dir after creating:-
+**********************************
+#touch a1
+#ls -l a1
+- rw-r--r-- 1 root root 19 jan 8:50 a1
+
+user=u		read=r		+ ->add perm
+group=g		write=w		- -> remove perm
+others=o	others=o	= -> to assign multiple perm
+
+
+#chmod <permission> <filename/dirname>
+ex:#chmod u+rw,g+rw,o+rw <filename> --> file
+   #chmod 666 a1
+   #chmod u+rwx,g+rwx,o-rx <dir name> --> dir
+   #chmod 770 d1
+
+
+changing ownership of files/dir:-
+**********************************
+user ownership:-
+****************
+
+#chown <username> <filename> --> to change user ownership of a file
+ex:#chown rajesh f1
+
+#chown -R <username> <dir name> --> to change user ownership of a dir recursively 
+ex:#chown -R rajesh d1
+
+group ownership:-
+*****************
+#chgrp <groupname> <filename> --> to change group ownership of file.
+ex:#chgrp rcb f1
+
+#chgrp -R <groupname> <dir name> --> to change group owner for dir.
+ex:#chgrp -R rcb d1
+
+changing both user & group ownership at a time:-
+************************************************
+
+#chown  <username:groupname> <filename> --> to change both user & group owner at a time.
+ex:#chown rajesh:rcb p1
+
+#chown -R <username:groupname> <dir name> --> to change both user & group owner of dir at a time.
+
+ex:#chown -R rajesh:rcb k1

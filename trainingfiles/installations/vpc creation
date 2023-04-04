@@ -1,0 +1,11 @@
+vpc
+   name and cidr range
+subnet
+  name and availaibility zone 
+Internet Gateway
+  name
+  attach this to vpc
+route table
+  defualtly create when vpc create
+  Edit route in that route attach internet gateway 
+  edit the subnet association  and attach subnet

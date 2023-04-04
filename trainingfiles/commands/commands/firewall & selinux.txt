@@ -1,0 +1,166 @@
+firewallD:-
+**********
+firewall:-
+*********
+filering the network data packets is called as firewall.
+
+-> it is a deamon respomnsible for network-filtering.
+-> it reads the incoming data packets & allow or deny the packets based on header information.
+-> in linux OS it has inbuilt network filter Netfilter(network filter)
+
+-> package name: firewall
+-> service: firewalld
+-> config file is /etc/firewall/firewalld.conf
+
+-> there are 3 ways of managing firewall:
+1)GUI
+2)firewall-cmd tools ---> we use only this method.
+3)configuration file
+
+
+there are multiple zones in firewall:-
+**************************************
+1)block zone
+2)DMZ (De militerized zone)
+3)drop zone
+4)external zone
+5)home zone
+6)internal zone
+7)trusted zone
+8)work zone
+9)public
+
+-> default zone is public.
+-> there are different rules in different zone.
+-> rules can be changes when ever required.
+
+zones consists of different types of filters:-
+**********************************************
+1)services
+2)ports
+3)masquarding
+4)port-forwarding
+5)ICMP filter.
+6)rich rule
+7)interface
+8)sources
+
+-> firewall can be configured in 2 ways:-
+1)temperary:-
+*************
+-> it is not persistant
+-> it cannot with stand reboot
+-> if we relaod the firewall the rules will be removed.
+2)permanent:-
+************
+-> it is persistant
+-> it can with stand reboot
+-> after doing the changes permanently you have to reload the firewall.
+
+
+commands:-
+**********
+
+#systemctl status firewalld
+
+#firewall-cmd --state  --> to check the firewall status.
+
+#firewall-cmd --get-zones  --> to get all available zones.
+
+#firewalll-cmd  --get-default-zone   --> to know the default zone.
+
+#firewall-cmd --get-active-zone   ---> to get the active zone.
+
+#firewall-cmd --set-default-zone=<zone name>    --> to set default zone.\
+ex: #firewall-cmd --set-default-zone=trusted
+
+-> whenever you want the changes to be done in permmanent method then use "--permanent"
+
+#firewall-cmd --add-interface=<NIC name> --zone=<zone name>   --> for adding a NIC card to perticular zone.
+ex: #firewall-cmd --permanent --add-interface=ens33	--zone=trusted
+
+#firewall-cmd --reload   --> to do the changes permanently the reload is always required.
+
+#firewall-cmd --remove-interface=<NIC name> --zone=<zone name> 
+ex: #firewall-cmd --permanent --remove-interface=ens33 --zone=trusted
+
+#firewall-cmd --relaod
+
+
+#firewall-cmd --permanent --zone=trusted --add-source= 192.168.142.100/24
+
+#firewall-cmd --permanent --zone=trusted --remove-source=192.168.142.100/24
+
+#firewall-cmd --zone=trusted --add-service=ssh
+
+#firewall-cmd --zone=trusted --list-services  --> to list all services in that perticular zone.
+
+#firewall-cmd --zone=trusted --remove-service=ssh
+
+#firewall-cmd --zone=public --add-port=82/tcp
+
+#firewall-cmd --zone=public --list-ports  --> to list all ports in perticular zone.
+
+#firewall-cmd --zone=public --remove-port=82/tcp
+
+#firewall-cmd --zone=public --add-masqurade
+
+#firewall-cmd --zone=public --remove-masqurade
+
+note:-
+****
+-> whenever you are using firewall-cmd command you are doing for runtime & whenever you want to do in for permanent purpose give "--permanent".
+
+
+SELinux[security enhanced linux]:-
+********************************
+->security enhanced linux is additional layer of system security.
+-> the main purpose of objective of SE linux is to protect the user data.
+-> selinux is control by mandatory access control
+-> we have 3 different modes in SELinux:-
+1)enforcing:-
+************
+-> this is the default option in enforcing mode, if something happens on the system that is against the defined policy then that action will be blocked and log data will be stored.
+2)permissive:-
+*************
+here the action will not be bblocked but the log will data will be stored.
+3)disabled:-
+**********
+here the action will not be blocked and the log data is also not stored.
+
+value		security	logs
+enforcing	yes		yes	
+permissive 	no 		yes	
+disabled	no 		no 
+
+note:-
+*****
+-> no system reboot is required while switching from enforcing to permissive & viceversa.
+-> system reboot is reqired while switching from enforcing to disabled & from permissive to disabled & vice versa.
+
+temperary change on selinux mode:-
+*********************************
+#getenforce   ---> display selinux current mode
+
+#setenforce 0  --> switch the mode to permissive
+
+#setenforce 1  --> switch the mode to enforcing
+
+0 --> permissive 
+1 --> enforcing
+ 
+permanent change of selinux mode:-
+**********************************
+-> edit the config file  /etc/selinux/config
+#vim /etc/selinux/config
+change SELinux=enforcing
+       	       permissive
+               disabled	
+
+
+:wq!
+
+#reboot
+
+#getenforce   --> to know the current mode.
+

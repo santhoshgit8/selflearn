@@ -1,0 +1,81 @@
+ cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+    4  [kubernetes]
+    5  name=Kubernetes
+    6  baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+    7  enabled=1
+    8  gpgcheck=1
+    9  gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+   10  exclude=kubelet kubeadm kubectl
+   11  EOF
+   12  yum update -y
+   13  yum install kubectl -y
+   14  amazon-linux-extras install docker -y
+   15  yum install kubectl -y
+   16  : yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   17   yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   18   yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   19  clear
+   20  mkdir .kube
+   21  ls -altr
+   22  cd .kube/
+   23  ls
+   24  pwd
+   25  cd
+   26  chmod a+rwx /root
+   27  cd .kube/
+   28  vi 7000.pem
+   29  vi 7000.pem
+   30  ls
+   31  chmod 600 7000.pem
+   32  scp -i '7000.pem' -pr root@172.31.19.126:/root/.kube/config .
+   33  scp -i '7000.pem' -pr ec2-user@172.31.19.126:/root/.kube/config .
+   34  ls
+   35  kubectl  config view
+   36  cd
+   37  yum update -y
+   38  hostnamectl set-hostname test --static
+   39  bash
+   40  cd
+   41  ls -altr
+   42  cd .kube/
+   43  ls
+   44  kubectl config view
+   45  clear
+   46  kubectl get nodes
+   47  kubectl get nodes
+   48  kubectl get nodes -o wide
+   49  kubectl get pods -o wide
+   50  clear
+   51  useradd global1
+   52  passwd global1
+   53  passwd global1
+   54  clear
+   55  kubectl config view
+   56  useradd global1
+   57  kubectl config view
+   58  cd /home/global1/
+   59  cd
+   60  ls
+   61  cd .kube/
+   62  ls
+   63  mv 7000.pem /root
+   64  cd
+   65  ls
+   66  scp -i '7000.pem' -pr ec2-user@172.31.19.126:/etc/kubernetes/pki/ca.crt .
+   67  scp -i '7000.pem' -pr ec2-user@172.31.19.126:/etc/kubernetes/pki/ca.key .
+   68  scp -i '7000.pem' -pr ec2-user@172.31.19.126:/etc/kubernetes/pki/ca.key .
+   69  ls
+   70  pwd
+   71  cd /home/global1/
+   72  ls
+   73  openssl genrsa -out global1.key 2048
+   74  ls
+   75  cat global1.key
+   76  ls
+   77  clear
+   78  openssl req -new -key global1.key -out global1.csr -subj "/CN=global1"
+   79  ls
+   80  openssl x509 -req -in global1.csr  -CA /root/ca.crt  -CAkey /root/ca.key -CAcreateserial -out global1.crt -days 500
+   81  ls
+   82  history
+[root@test global1]#

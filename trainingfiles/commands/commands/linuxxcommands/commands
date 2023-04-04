@@ -1,0 +1,134 @@
+ cd boot
+  911  cd /boot
+  912  cd /home
+  913  cd /bin
+  914  cd /root
+  915  cd /var
+  916  ls
+  917  cd games
+  918  pwd
+  919  cd boot
+  920  ls
+  921  cd /boot
+  922  ls
+  923  history
+  924  cd
+  925  cd /boot
+  926  ls
+  927  clear
+  928  cd /home
+  929  ls
+  930  cd tom
+  931  ls
+  932  ls -ltr
+  933  ls
+  934  pwd
+  935  useradd krish
+  936  useradd soham
+  937  cat /etc/sudoers
+  938  clear
+  939  useradd done
+  940  su done
+  941  cd
+  942  cd /etc
+  943   ls
+  944  tty
+  945  clear
+  946  cd
+  947  df -h
+  948  mount /dev/sr0 /mnt
+  949  df -h
+  950  cd /mnt
+  951  ls
+  952  cd
+  953  df -h
+  954  umount /mnt
+  955  df -h
+  956  mkdir /zebro
+  957  mount /dev/sr0 /zebro
+  958  df -h
+  959  umount
+  960  umount /zebro/
+  961  clear
+  962  df -h
+  963  mount /dev/sr0 /mnt
+  964  df -h
+  965  cd /mnt
+  966  ls
+  967  cd
+  968  df -h
+  969  umount /mnt
+  970  history
+  971  cd /proc
+  972  ls
+  973  cat /etc/passwd
+  974  cd /var
+  975  ls
+  976  cd
+  977  cd /opt
+  978  ls
+  979  cd
+  980  history
+  981  cd /boot
+  982  ls
+  983  cd /
+  984  ls
+  985  cd /home
+  986  la
+  987  ls
+  988  cd tom
+  989  ls
+  990  mkdir -p a/b/c/d
+  991  ls
+  992  cd a
+  993  ls
+  994  cd b
+  995  ls
+  996  cd c
+  997  ls
+  998  cd d
+  999  ls
+ 1000  pwd
+ 1001  ls
+ 1002  cd /home
+ 1003  ls
+ 1004  cd
+ 1005  ls /home
+ 1006  ls -ltr /home
+ 1007  ls -ltr
+ 1008  history
+ 1009  clear
+ 1010  ls
+ 1011  ls -ltr
+ 1012  clear
+ 1013  ls
+ 1014  ls -ltr
+ 1015  ls
+ 1016  ls -ltr
+ 1017  touch  bru
+ 1018  ls -ltr
+ 1019  touch sajal
+ 1020  ls -ltr
+ 1021  ls -lt
+ 1022  ls -ltr
+ 1023  ls -ltr bru
+ 1024  su tom
+ 1025  ls -ltr
+ 1026  ls -ltr |grep ^-
+ 1027  ls -ltr |grep ^d
+ 1028  ls -ltr |grep ^- |wc -l
+ 1029  ls -ltr |grep ^d |wc -l
+ 1030  clear
+ 1031  ls -ltr
+ 1032  ls -ltr bru
+ 1033  ls -ltr sajal
+ 1034  ls -ltr sun1
+ 1035  ls -ltr |grep sun1
+ 1036  ls -ltr /home
+ 1037  ls -ltr |grep /home
+ 1038  cd /
+ 1039  ls -ltr home
+ 1040  ls -ltr |grep home
+ 1041  ip addr
+ 1042  history
+[root@server1 /]#

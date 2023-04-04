@@ -1,0 +1,23 @@
+To download helm
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+export PATH=$PATH:/usr/local/bin
+
+./get_helm.sh
+
+To verify the installation use the following command
+which helm
+
+
+Let’s create Our First Helm Chart
+
+
+helm repo add stable https://charts.helm.sh/stable
+
+
+helm install testchart2 stable/tomcat --set service.type=NodePort
+
+to uninstall helm
+which helm ( to see which folder its installed )
+rm -rf /usr/local/bin/helm
+kubectl get all

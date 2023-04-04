@@ -1,0 +1,14 @@
+AKIAVPHQXL2RBWOJLFWI
+5THvjFwrVZsBw/FmPmb7vFjf8yKCRMk8qbT62bj5
+
+oneuser:
+AKIAVPHQXL2RA4QBW4O7
+tQ3TrNVpRONdtDMLImn1KBo7qYjyl9sQbJGLWvNS
+
+terraformincred
+
+provider "aws" {
+    region= "us-east-2"
+    access_key = "AKIAVPHQXL2RA4QBW4O7"
+    secret_key = "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"
+    }

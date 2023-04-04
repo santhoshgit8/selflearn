@@ -1,0 +1,81 @@
+modify user account:-
+**********************
+#usermod -u <custom uid> <username>  --> to change the uid of user 
+ex:#usermod -u 8000 rahul
+
+#usermod -c <description> <username> --> to change the discription of user.
+ex:#usermod -c mommy mom 
+
+#usermod -g <primary group> <uername> --> to change primary group of a user.
+ex:-#usermod -g rcb bangalore
+
+#usermod -G <secondary group> <username> --> to change secondary group of a user.
+ex:#usermod -G mom bangalore
+
+#usermod -d <home dir> <username> --> to change the home dir of a user.
+ex:#usermod -d /home/rahul rahul
+
+#usermod -s <shell path> <username> --> to change the shell path of a user.
+ex: #usermod -s /bin/bash rahul
+
+#usermod -l <new username> <old username> --> to change the username.
+ex:#usermod -l ra rahul
+
+to lock a user account:-
+************************
+
+#passwd -l <username> --> to lock a user acoount.
+     (or)
+#usermod -L <username> 
+
+ex:#passwd -l bangalore
+
+#passwd --status <username> --> to check the status of user locked or not.
+ex:#passwd --status bangalore
+
+#passwd -u  <username> --> to unlock a user account.
+          (or)
+#usermod -U <username> 
+
+ex:#passwd -u bangalore 
+
+note:-
+******
+1) root user can login into normal user without password.
+2) normal user cannot login to another normal user without password.
+
+
+sudo user:-
+***********
+a normal user having a access to root user commands is called as sudo user.
+
+the config file of sudo user is /etc/sudoers .
+#vim /etc/sudoers
+
+#which <command> --> to check the binary location of a file.
+ex:#which useradd
+
+for sudo users:-
+***************
+go to 100 line & press esc+shift+a & press enter.
+<username>	ALL=(ALL)	NOPASSWD:<binary location od command>
+rahul		ALL=(ALL)	NOPASSWD:/sbin/useradd
+
+:wq!
+
+for groups sudo perm:-
+***********************
+
+go to 108 line and press esc+shift+a and press enter.
+%<group namr>	ALL=(ALL)	NOPASSWD:<binary location of caommand>
+%rcb		ALL=(ALL)	NOPASSWD:/sbin/useradd
+
+:wq!
+
+
+
+
+
+
+
+

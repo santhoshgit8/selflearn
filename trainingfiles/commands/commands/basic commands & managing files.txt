@@ -1,0 +1,108 @@
+basic commands:-
+****************
+#uname -i --> shows operating system architecture
+
+#uname -r --> shows kernel version
+
+#uname -n --> it shows hostname or machine name
+
+#uname -a --> shows complete information about that perticular machine
+
+#lshw --> list the available hardware devices.
+
+#lshw --short --> it shows the hardware info in shortlisted.
+
+#ls --> listing all files & dir present in my pwd.
+
+#lscpu --> shows info about cpu
+
+#lsblk --> lists bolck device information.
+
+#free -m --> shows the available memory in Mb
+
+#lsusb --> list the info about usb ports.
+
+#date --> it shows the present date & time.
+
+#timedatectl --> shows detailed info about time.
+
+#history --> it shows the history command used before.
+
+#history -c --> to clear the history.
+
+
+MANAGING FILES & DIRECTORY:-
+****************************
+FILE :-
+********
+1)touch --> creating a empty file.
+2)cat  --> concatination.
+3)vi/vim --> visual editor/visual editor monitor.
+
+
+1)touch:-
+*********
+NORMAL FILE:-
+************
+#touch <filename>
+ex:#touch f1
+
+#touch <filename1> <filename2> <filename3> 
+ex:#touch f2 f3 f4
+
+#touch a{1..10}
+
+#ls
+
+hidden file:-
+*************
+. --> it represents a hidden file
+
+#touch .<filename>
+ex:#touch .f2
+
+#touch .<filename1> .<filename2> .<filename3>
+ex:#touch .f1 .f3 .f4
+
+#touch .zafar{1..10}
+
+#ls --> list all normal files.
+
+#l. --> list all hidden files.
+
+#ls -a --> list all normal & hidden files.
+
+
+2)cat:-
+*****
+
+#cat><filename> --> create a new file & add data
+ex:#cat>g1
+hi i am zafar from bangalore.
+
+ctrl+d --> to save a cat file
+
+#cat <filename> --> to view the content present in perticular file.
+ex: #cat g1
+hi i am zafar from bangalore.
+
+#cat>><filename> --> to add data to existing file.
+ex:#cat>>g1
+i am training a session of 7am.
+ctrl+d
+
+#cat g1
+hi i am zafar from bangalore.
+i am training a session of 7am.
+
+
+note:-
+******
+#cat> -->create a new file which doesnot exists.
+
+#cat --> to view the content.
+
+#cat>> --> to add data to existing file.
+
+
+

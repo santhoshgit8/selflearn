@@ -1,0 +1,153 @@
+process management:-
+*******************
+process:
+********
+-> any activity /task we execute in operating system is called as process.
+-> every process which is running in our os is purely dependent on another process.
+-> every process has its own unique id is called as process id(pid).
+-> several process are started at boot time.
+-> the first process gets started in rhel7 & rhel8 is "systemd".
+-> the first process in rhel6 was "initd".
+-> the process which run in the background are called as "daemons".
+-> there are 4 stages of process:
+
+1) parent process  : the process which starts of its own and creates new process.
+2) child process : the process which is started & created by its parent.
+3) orphan process : the child which is running without parent process.
+4) zoombie process : the parent process running without child process.
+
+-> we  have 4 tyes of process:-
+1) running process ("r")
+2) sleeping process ("s")
+3) waiting process ("w")
+4) stopped process ("T")
+
+
+commands:-
+*********
+
+#ps   --> to list all the process info in current terminal
+
+#ps -a   --> to list all the process info from all terminals.
+
+#top ---> monitoring process,by default it will be updated every 3 seconds.
+
+#ps -ef  --> show the process info with parent process id(ppid)  & process id (pid).
+
+#ps -elf  ---> shows the process info with ppid,pid & nice value.
+
+nice value:-
+***********
+nice value are user specific values that we can use to control the priority of process.
+
+-> the nice value ranges from -20 to +19
+-20 is highest priority
+0 is default priority
++19 is lowest priority
+
+
+#ps -aux    ---> to show the process information with ram & cpu info.
+
+#ps -aux | wc -l  --> to show the count of the process running in backgroup & frontend.
+
+
+killing process with process name:-
+************************************
+
+
+foreground process:-
+********************
+-> by default every process you start is running in foreground.
+
+-> it is time consuming,no other process can be run while the process is running.
+
+-> to stop the fg process press "ctrl+z"
+
+-> to check the job status is stopped or  not  "#jobs"
+
+-> to start the process "# fg %<job id>"
+
+-> to terminate the process "ctrl+c"
+
+
+background process:-
+********************
+-> bg process runs without being connected to keyboard.
+
+-> the advantage is you can run other commands.
+-> to add a process to background give ampersand(&) at the end of command.
+
+ex: #yum install mariadb-server -y&
+
+-> to stop the process #kill -19 <pid> 
+
+-> to start the process #kill -18 <pid>
+
+-> to terminate a process #kill -15 <pid>
+
+-> to kill the process #kill -9 <pid>
+
+-> to know the status 0f process #jobs
+
+
+
+job sheduling:-
+*************
+
+job:-
+*****
+the purpose of jobs is automating a task (or) scripts.
+
+-> we have 2 types of jobs:-
+
+1) at job
+2) cron job
+
+
+1)at job:-
+**********
+-> if we shedule a at job that is for one time.
+-> the jobs cannot be repeated in at jobs.
+-> by default any normal user can create at jobs.
+
+#yum install at
+
+#systemctl status atd
+#systemctl start atd
+#systemctl enable atd
+
+#at now     --> to create a job right now
+at> touch zafar
+at> ctrl+d   ---> to save the job & quit from at prompt.
+
+#ls
+
+
+#at now+3min  --> to shedule a job after 3 min
+at> mkdir j1
+at> ctrl+d
+
+#atq  --> to list the at jobs in quaue.
+
+#at -l --> to list at jobs.
+
+#at -r <job id>   --> to remove the at job
+
+deny the perticular user from at jobs:-
+**************************************
+
+#vim /etc/at.deny
+<username>
+ex: zafar
+
+:wq!
+
+#su - zafar
+
+$at now
+
+--> if you want to grant a perm for at job for the user who is denied just remove the username from /etc/at.deny file as a roo user.
+
+
+
+

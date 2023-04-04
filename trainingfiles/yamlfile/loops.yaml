@@ -1,0 +1,17 @@
+#!/bin/bash
+- name: Loops in Ansible Playbook Part I
+  hosts: web
+
+  tasks:
+    # Add Multiple User's in one go
+    - name: add several users in one go
+      user:
+        name: "{{ items}}"
+        state: present
+        groups: "games"
+      with_items:
+        - testuser1
+        - testuser2
+        - testuser3
+        - testuser4
+        - testuser5

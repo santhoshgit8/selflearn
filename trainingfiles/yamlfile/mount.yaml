@@ -1,0 +1,11 @@
+#!/bin/bash
+---
+- name: Install nmap
+  hosts: web
+  tasks:
+     - name: install nmap
+       yum:
+         name: nmap
+         state: present
+       loop: "{{ anssible_mounts }}"
+       when: items.mount == "/" and item.size_available > 50000000

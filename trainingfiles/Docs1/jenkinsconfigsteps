@@ -1,0 +1,52 @@
+step-1 launch 3 instances ununtu 20.04 LTS with storage 25gb and security group all tcp and all traffic[master,staging,production]
+step-2 set the hostname and update the apt repositey
+step-3 install supportabel packges  for jenkings that is java jdk in all instances{follow linixize document [link-:apt install openjdk-11-jdk] }
+           
+           apt install openjdk-11-jdk
+           
+step-4 install jenkins only on master
+      add key
+          
+          wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+          
+     add repo
+     
+         sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+   
+    check the repo or path for jenkin libraries
+      
+      cd /etc/apt/sources.list.d/
+      ls
+         
+     install jenkins package
+     
+               sudo apt update
+               sudo apt install jenkins
+      
+     automaitically starts the jenkins for checking     
+      
+      systemctl status jenkins 
+
+step-5 unlock the jenking for master machine 
+       public ipaddress:8080 on browser direct to a page where we have info about password, enter passwd 
+       next  select installed packages
+       create first admin user 
+       
+step 6- Cofigure global security
+   dashboad-> configure Global Security
+   provide random access managemnt
+step 7 - Add the nodes
+   staging    
+   Node name-staging & click create
+   remote root directory- /home/ubuntu/jenkins
+   launcn method -lunch agent connecting to the controller
+   production
+    Node name-production & click create
+    remote root directory- /home/ubuntu/jenkins
+    launcn method -lunch agent connecting to the controller
+step-8 synchronize the nodes to cluster
+     download the jar files from staging and production nodes after  click on the staging or production according to machine
+     copy to the accodinly to the machine like staging jar to staging machine and production to productio using filezilla
+     paste the comman for jenkins page where jar file is downloaded
+     
+   

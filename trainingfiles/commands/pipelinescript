@@ -1,0 +1,54 @@
+node('Node') {
+    environment{
+       PATH = "/usr/share/man/man1:$PATH"
+       name = "santhosh127"
+    }
+    stage('Git clone')
+    {
+        git 'https://github.com/santhoshgit8/capstoneproject.git'
+    }
+    stage('maven build')
+    {
+        sh "mvn clean install -Dmaven.test.skip=true"
+    }
+    stage('docker-compose build')
+    {
+        dir('/home/ec2-user/jenkins/workspace/pipeline') {
+            sh "pwd"
+        }
+        sh 'docker system prune -a --volumes -f'
+        sh 'chmod 777 docker-compose.yml'
+        sh 'docker-compose up -d --no-color --wait'
+        sh 'docker-compose ps'
+      }
+      stage("tagging images")
+        {
+        	sh 'docker image list'
+        	sh 'docker tag pipeline-email-service santhosh127/project-email-service'
+        	sh 'docker tag pipeline-api-gateway santhosh127/project-api-gateway'
+        	sh 'docker tag pipeline-authentication-service santhosh127/project-authentication-service'
+        	sh 'docker tag pipeline-eureka-server santhosh127/project-eureka-server'
+        	sh 'docker tag pipeline-chat-service santhosh127/project-chat-service'
+        	sh 'docker tag pipeline-appointment-service santhosh127/project-appointment-service'
+        	sh 'docker tag pipeline-user-service santhosh127/project-user-service'
+        	sh 'docker tag pipeline-webapp santhosh127/project-webapp'
+        	sh 'docker tag mysql santhosh127/mysql'
+        	sh 'docker tag rabbitmq:3-management santhosh127/rabbitmq:3-management'	
+        	sh 'docker tag mongo santhosh127/mongo'
+        }
+        stage("pushing images")
+        {
+        	sh 'docker image list'
+        	sh 'docker push santhosh127/project-email-service'
+        	sh 'docker push santhosh127/project-api-gateway'
+        	sh 'docker push santhosh127/project-authentication-service'
+        	sh 'docker push santhosh127/project-eureka-server'
+        	sh 'docker push santhosh127/project-chat-service'
+        	sh 'docker push santhosh127/project-appointment-service'
+        	sh 'docker push santhosh127/project-user-service'
+        	sh 'docker push santhosh127/project-webapp'
+        	sh 'docker push santhosh127/mysql'
+        	sh 'docker push santhosh127/rabbitmq:3-management'
+        	sh 'docker push santhosh127/mongo'
+        }
+}
