@@ -1,0 +1,321 @@
+
+playbook
+===========
+using playbook we can run multiple task or multiple complicated task
+
+it is completely build of yaml language
+
+yaml------yet another markup language or yaml ain't markup language
+basically yaml language will be in human readable format
+
+note
+=====
+the playbook file should be extended with .yml 
+
+creating .vimrc file
+=====================
+this .vimrc file will help you to avoid syntax errors
+suppose if ur root user in ansible engine  u have to create under vim /root/.vimrc
+set ts=2 
+set ai
+set cursorcolumn
+set et
+
+ts-----tabstop
+ai-----artificial intillegence
+et-----expand tab
+wq!
+
+
+if suppose ur are normal user
+you have create under  vim /home/raj/.vimrc
+set ts=2 
+set ai
+set cursorcolumn
+set et
+
+sample playbook
+==============
+--- --------------------play line
+- name: sample ---------------------play name
+  hosts: all
+  tasks:
+  - name: creating user
+    user:
+      name: santhosh
+      state: present
+
+wq!
+
+#ansible-playbook play1.yml --syntax-check
+it is used for checking syntax error
+#ansible-playbook play1.yml --step
+it will perform each and evry task step by step by asking permission
+#ansible-playbook play1.yml --start-at-task="creating user"
+the --start-at-task option allows you to start execution of playbook from a specific task
+
+troubleshooting
+================
+#ansible-playbook --check play1.yml
+ or
+#ansible-playbook -C play1.yml
+
+smoke test
+
+to run the playbook
+=====================
+#ansible-playbook play1.yml
+
+multiple task inside different play with different host groups
+===============================================================
+---
+- name: joyplay
+  hosts: abi
+  tasks:
+  - name: create user
+    user:
+      name: vignesh
+      state: present
+- name: gameplay
+  hosts: ruby
+  tasks:
+  - name: copy of file
+    copy:
+      src: /ansible/f22
+      dest: /
+wq!
+   
+
+tags
+===========
+
+vim play1.yml
+
+---
+- name: gameplay
+  hosts: all
+  tasks:
+  - name: creating user
+    user:
+      name: vigy
+      state: present
+    tags: creating
+ -  name: installing package
+    yum:
+      name: httpd
+      state: present
+wq!
+
+#ansible-playbook play1.yml --tags "creating"
+it will run only the task which is specified in tag
+#ansible-playbook play1.yml --skip-tags "creating"
+it will exclude the task which is mention in tag and it will run rest all the other tasks
+
+creating partition
+==============================
+
+--- ---------------------------------------------------play line   
+- name: superplay-------------------------------------task line
+  hosts: servera.lab.example.com
+  tasks:
+  - name: creating 2gb partition---------------------------module line:
+    parted:
+      device: /dev/sdb
+      number: 1
+      state: present
+      part_start: 2MiB
+      part_end: 2GiB
+  - name: format the disc
+    filesystem:
+      fstype: xfs
+      dev: /dev/sdb1
+  - name: creating directory
+    file:
+      dest: /d45
+      state: directory
+  - name: mount the partition
+    mount:
+      path: /d45
+      src: /dev/sdb1
+      fstype: xfs
+      state: mounted
+       
+~                  
+
+
+variable is used to store information so we can use it for refrence and manipulate it in a computer program
+
+
+why?
+
+whenever we are doing repeated task usually like complication playbook it will store values mentioned in the variable
+and tat will be taken as the reference 
+
+
+repeated task like
+creating users
+installing packages
+removing files
+installing services
+
+note:-------
+ur variable names should always start with letters
+variables can use letters,underscores,number
+
+valid names                    invalid names
+web_server                     web server
+remote_file                      remote-file
+first_1 or file1                 1st file
+remote_server1                   remote_server$1
+
+variables have different types of scopes
+global scope
+play scope
+host scope
+ 
+note:---
+variables are self defined by admins based on requirements
+
+global scope
+============
+
+in global scope variables always mentioned in the outside of playbook
+vim /home/raj/ansible/viggy
+
+pkg1: httpd
+srv1: httpd
+user1: vignesh
+file1: /f1
+
+vim /home/raj/ansible/play1.yml
+
+---
+- name: superplay
+  hosts: all
+  tasks:
+  - name: variable file
+    include_vars: /home/raj/ansible/viggy
+  - name: installing package
+    yum:
+      name: "{{ pkg1 }}"
+      state: present
+  - name: installing service
+    service:
+      name: "{{ srv1 }}"
+      state: started
+      enabled: yes
+  - name: creating user
+    user:
+      name: "{{ user1 }}"
+      state: present
+  - name: creating file
+    file:
+      dest: "{{ file1 }}"       
+      state: touch
+
+
+play scope
+==============
+variables are defined inside the playbook note:-- variables list are represnted with vars key
+
+
+vim /home/raj/ansible/play2.yml
+
+--- 
+- name: playgood
+  hosts: abi
+  vars:
+    pkg1: httpd
+    srv1: httpd
+  tasks:
+  - name: installing package
+    yum:
+      name: "{{ pkg1 }}"
+      state: present
+  - name: installing service
+    service:
+      name: "{{ srv1 }}"
+      state: started
+      enabled: yes
+
+host scope
+=============
+variables st on host groups and individual hosts by the inventory,fact gathering or registered tasks
+
+host level
+============
+vim /home/raj/ansible/hosts
+servera pkg1=vsftpd srv1=vsftpd
+
+vim /home/raj/ansible/play3.yml
+--- 
+
+- name: playgood
+  hosts: abi
+  tasks:
+  - name: installing package
+    yum:
+      name: "{{ pkg1 }}"
+      state: present
+  - name: installing service
+    service:
+      name: "{{ srv1 }}"
+      state: started
+      enabled: yes
+
+group level
+==============
+
+vim /home/raj/ansible/hosts
+
+[ashok]
+servera
+serverc
+
+[ashok:vars]
+pkg1=autofs
+srv1=autofs
+
+vim /home/raj/ansible/play3.yml
+
+--- 
+- name: playgood
+  hosts: ashok
+  tasks:
+  - name: installing package
+    yum:
+      name: "{{ pkg1 }}"
+      state: present
+  - name: installing service
+    service:
+      name: "{{ srv1 }}"
+      state: started
+      enabled: yes
+
+
+registered variable
+=====================
+administrator can capture the output of a command b y using register variable
+
+vim /home/raj/ansible/play4.yml
+
+- 
+
+- name: playgood
+  hosts: all
+  tasks:
+  - name: installing package
+    yum:
+      name: "{{ pkg1 }}"
+      state: present
+    register: output
+  - name: installing service
+    service:
+      name: "{{ srv1 }}"
+      state: started
+      enabled: yes
+  - name: getting output
+    debug:
+      var: output
+wq!
+

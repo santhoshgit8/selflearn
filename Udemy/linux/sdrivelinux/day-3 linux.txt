@@ -1,0 +1,369 @@
+[root@localhost ~]# chmod 764 file5
+[root@localhost ~]# ls -ltr file5
+-rwxrw-r--. 1 root root 16 Jan  3 15:25 file5
+[root@localhost ~]# chmod 641 file5
+[root@localhost ~]# ls -ltr file5
+-rw-r----x. 1 root root 16 Jan  3 15:25 file5
+[root@localhost ~]# chmod 000 file5
+[root@localhost ~]# ls -ltr file5
+----------. 1 root root 16 Jan  3 15:25 file5
+[root@localhost ~]# chmod 777 file5
+[root@localhost ~]# ls -ltr file5
+-rwxrwxrwx. 1 root root 16 Jan  3 15:25 file5
+[root@localhost ~]#
+[root@localhost ~]# chmod u+x,g=rw,o=r file5
+[root@localhost ~]# ls -ltr file5
+-rwxrw-r--. 1 root root 16 Jan  3 15:25 file5
+[root@localhost ~]# ls -ltr file5
+-rwxrw-r--. 1 root root 16 Jan  3 15:25 file5
+[root@localhost ~]# chmod u-x,g-w,o-r file5
+[root@localhost ~]# ls -ltr file5
+-rw-r-----. 1 root root 16 Jan  3 15:25 file5
+
+[root@localhost ~]# ls -ltr file5
+-rwxrwxrwx. 1 root root 16 Jan  3 15:25 file5
+[root@localhost ~]# chmod u=rw,g=r,o=--- file5
+[root@localhost ~]# ls -ltr file5
+-rw-r-----. 1 root root 16 Jan  3 15:25 file5
+
+********************************************************************************************************************
+Umask
+
+root@localhost ~]#
+[root@localhost ~]# vim /etc/bash
+bash_completion.d/ bashrc
+[root@localhost ~]# vim /etc/bashrc
+[root@localhost ~]# vim /etc/profile
+[root@localhost ~]# vim /etc/profile
+[root@localhost ~]# init 6
+
+
+
+*****************************************************************************************************************
+setfacl
+
+[root@localhost harry]#
+[root@localhost harry]# setfacl -m u:natasha:rwx f1.txt
+[root@localhost harry]# setfacl -m u:sara:r f1.txt
+[root@localhost harry]# ls -ltr
+total 4
+-rwxrwx---+ 1 harry harry 37 Jan  4 10:59 f1.txt
+[root@localhost harry]# getfacl f1.txt
+# file: f1.txt
+# owner: harry
+# group: harry
+user::rwx
+user:natasha:rwx
+user:sara:r--
+group::rw-
+mask::rwx
+other::---
+
+[root@localhost harry]# ls -ltr
+total 4
+-rwxrwx---+ 1 harry harry 37 Jan  4 10:59 f1.txt
+[root@localhost harry]# setfacl -m u:natasha  f1.txt
+setfacl: Option -m incomplete
+[root@localhost harry]# setfacl -x u:natasha  f1.txt
+[root@localhost harry]# setfacl -x u:sara f1.txt
+[root@localhost harry]# ls -ltr
+total 4
+-rwxrw----+ 1 harry harry 37 Jan  4 10:59 f1.txt
+[root@localhost harry]# getfacl f1.txt
+# file: f1.txt
+# owner: harry
+# group: harry
+user::rwx
+group::rw-
+mask::rw-
+other::---
+
+[root@localhost harry]# ls -ltr f1.txt
+-rwxrw----+ 1 harry harry 37 Jan  4 10:59 f1.txt
+[root@localhost harry]# getfacl f1.txt
+# file: f1.txt
+# owner: harry
+# group: harry
+user::rwx
+group::rw-
+mask::rw-
+other::---
+
+[root@localhost harry]# ls -ltr f1.txt
+-rwxrw----+ 1 harry harry 37 Jan  4 10:59 f1.txt
+[root@localhost harry]# ls -ltr
+total 4
+-rwxrw----+ 1 harry harry 37 Jan  4 10:59 f1.txt
+[root@localhost harry]# setfacl -x u:natasha  f1.txt
+[root@localhost harry]# setfacl -x u:sara f1.txt
+[root@localhost harry]# getfacl f1.txt
+# file: f1.txt
+# owner: harry
+# group: harry
+user::rwx
+group::rw-
+mask::rw-
+other::---
+
+[root@localhost harry]# ls -ltr
+total 4
+-rwxrw----+ 1 harry harry 37 Jan  4 10:59 f1.txt
+[root@localhost harry]# chmod 700 f1.txt
+[root@localhost harry]# ls -ltr
+total 4
+-rwx------+ 1 harry harry 37 Jan  4 10:59 f1.txt
+[root@localhost harry]# getfacl f1.txt
+# file: f1.txt
+# owner: harry
+# group: harry
+user::rwx
+group::rw-                      #effective:---
+mask::---
+other::---
+
+[root@localhost harry]# cd
+[root@localhost ~]#
+
+*******************************************************************************************************************
+
+[root@localhost ~]# chattr +i zebro
+[root@localhost ~]# lsattr zebro
+----i----------- zebro
+[root@localhost ~]# vi zebro
+[root@localhost ~]# cat >> zebro
+-bash: zebro: Permission denied
+[root@localhost ~]# cat > zebro
+-bash: zebro: Permission denied
+[root@localhost ~]# mv zebro /home
+mv: cannot move ‘zebro’ to ‘/home/zebro’: Operation not permitted
+[root@localhost ~]# chmod 777 zebro
+chmod: changing permissions of ‘zebro’: Operation not permitted
+[root@localhost ~]# cat zebro
+******hello all enjoy linux ,
+[root@localhost ~]# cp -pr zebro zebro1
+[root@localhost ~]# ls
+anaconda-ks.cfg  zebro  zebro~  zebro1
+[root@localhost ~]# chattr zebro1
+Must use '-v', =, - or +
+[root@localhost ~]# lsattr zebro1
+---------------- zebro1
+[root@localhost ~]#
+
+ dd if=/dev/zero of=/root/metro bs=200M count=20
+  587  ls -ltr
+  588  gzip metro
+  589  ls -ltr
+  590  ls -hltr
+  591  ping google.com
+  592  yum install bzip2
+  593  ls -ltr
+  594  bzip2 metro.gz
+  595  ls -hltr
+  596  bunzip2 metro.gz.bz2
+  597  ls -hltr
+  598  gunzip metro.gz
+  599  ls -ltr
+  600  rm -rf metro
+  601  cp -pr anaconda-ks.cfg anna
+  602  ls -ltr
+  603  gzip anna
+  604  ls -ltr
+  605  bzip2 anna.gz
+  606  ls -ltr
+  607  bunzip2 anna.gz.bz2
+  608  gunzip anna.gz
+  609  history
+[root@localhost ~]#
+
+************************************************************************************************************************
+ TAR
+
+
+
+
+
+tar -cvzf /home/tiger.tar anaconda-ks.cfg zebro1 sun prior metro opra
+  687  ls
+  688  ls -ltr
+  689  cd /home
+  690  ls
+  691  tar -tvf tiger.tar
+  692  ls
+  693  tar -xvf tiger.tar
+
+-rw-rw-r--. 1 root root  1040 Jan  4 14:17 tiger.tar
+-rw-rw-r--. 1 root root 10240 Jan  4 14:28 z
+[root@localhost ~]# rm -rf zebro1 sun prior metro opra tiger.tar z
+[root@localhost ~]# ls -ltr
+total 4
+
+**********************************************************************************
+Symbolic link*****************************************
+
+
+
+-rw-------. 1 root root 1420 Jan  2 13:50 anaconda-ks.cfg
+[root@localhost ~]# cat >> opra
+hi all enjoy linux in shan & anchor
+******************************************************
+[root@localhost ~]# ls -ltr
+total 8
+-rw-------. 1 root root 1420 Jan  2 13:50 anaconda-ks.cfg
+-rw-rw-r--. 1 root root   92 Jan  4 14:54 opra
+[root@localhost ~]# date
+Wed Jan  4 14:54:25 IST 2023
+[root@localhost ~]# date
+Wed Jan  4 14:54:36 IST 2023
+[root@localhost ~]# date
+Wed Jan  4 14:54:48 IST 2023
+[root@localhost ~]# date
+Wed Jan  4 14:55:16 IST 2023
+[root@localhost ~]# clear
+[root@localhost ~]# ls -ltr
+total 8
+-rw-------. 1 root root 1420 Jan  2 13:50 anaconda-ks.cfg
+-rw-rw-r--. 1 root root   92 Jan  4 14:54 opra
+[root@localhost ~]# ln opra opra.st
+[root@localhost ~]# ls -ltr
+total 12
+-rw-------. 1 root root 1420 Jan  2 13:50 anaconda-ks.cfg
+-rw-rw-r--. 2 root root   92 Jan  4 14:54 opra.st
+-rw-rw-r--. 2 root root   92 Jan  4 14:54 opra
+[root@localhost ~]# ls -iltr
+total 12
+16797775 -rw-------. 1 root root 1420 Jan  2 13:50 anaconda-ks.cfg
+16797779 -rw-rw-r--. 2 root root   92 Jan  4 14:54 opra.st
+16797779 -rw-rw-r--. 2 root root   92 Jan  4 14:54 opra
+[root@localhost ~]# cat opra
+hi all enjoy linux in shan & anchor
+******************************************************
+[root@localhost ~]# cat opra.st
+hi all enjoy linux in shan & anchor
+******************************************************
+[root@localhost ~]# cat >> opra
+new line add
+[root@localhost ~]# cat opra.st
+hi all enjoy linux in shan & anchor
+******************************************************
+new line add
+[root@localhost ~]# ls -iltr
+total 12
+16797775 -rw-------. 1 root root 1420 Jan  2 13:50 anaconda-ks.cfg
+16797779 -rw-rw-r--. 2 root root  105 Jan  4 14:57 opra.st
+16797779 -rw-rw-r--. 2 root root  105 Jan  4 14:57 opra
+[root@localhost ~]# cat >> opra.st
+**************again new data added
+[root@localhost ~]# cat opra
+hi all enjoy linux in shan & anchor
+******************************************************
+new line add
+**************again new data added
+[root@localhost ~]# ls -iltr
+total 12
+16797775 -rw-------. 1 root root 1420 Jan  2 13:50 anaconda-ks.cfg
+16797779 -rw-rw-r--. 2 root root  140 Jan  4 14:58 opra.st
+16797779 -rw-rw-r--. 2 root root  140 Jan  4 14:58 opra
+[root@localhost ~]# chmod 777 opra
+[root@localhost ~]# ls -ltr
+total 12
+-rw-------. 1 root root 1420 Jan  2 13:50 anaconda-ks.cfg
+-rwxrwxrwx. 2 root root  140 Jan  4 14:58 opra.st
+-rwxrwxrwx. 2 root root  140 Jan  4 14:58 opra
+[root@localhost ~]# rm -rf opra
+[root@localhost ~]# ls -ltr
+total 8
+-rw-------. 1 root root 1420 Jan  2 13:50 anaconda-ks.cfg
+-rwxrwxrwx. 1 root root  140 Jan  4 14:58 opra.st
+[root@localhost ~]# cat opra.st
+hi all enjoy linux in shan & anchor
+******************************************************
+new line add
+**************again new data added
+[root@localhost ~]#
+[root@localhost ~]#
+[root@localhost ~]#
+[root@localhost ~]#
+[root@localhost ~]#  ln -s opra opra.st
+  736  ls -ltr
+  737  ls -iltr
+  738  cat >>opra
+  739  cat opra
+  740  cat opra.st
+  741  ls -ltr
+  742  rm -rf opra
+  743  ls -ltr
+  744  cat oprat
+  745  ls -ltr
+  746  cat opra.st
+  747  history
+  748  clear
+  749  history
+
+
+clear
+  751  cat /etc/passwd
+  752  groupadd hr
+  753  groupadd tech
+  754  groupadd devops
+  755  cat /etc/passwd
+  756  history
+  757  cat /etc/passwd
+  758  uaseradd krupa
+  759  useradd krupa
+  760  cat /etc/passwd
+  761  cat /etc/shadow
+  762  passwd krupa
+  763  cat /etc/shadow
+  764  clear
+  765  groupadd vashi
+  766  groupadd mumbai
+  767  useradd -d /hdfc -s /bin/bash -g vashi -G mumbai pinky
+  768  cat /etc/passwd
+  769  su pinky
+  770  usermod -u 3000 pinky
+  771  cat /etc/passwd
+  772  su pinky
+  773  useradd -d /hdfc -s /bin/bash -g vashi -G mumbai -u 3001chinky
+  774  useradd -d /hdfc -s /bin/bash -g vashi -G mumbai -u 3001 chinky
+  775  cat /etc/passwd
+  776  su chinky
+  777  cd /
+  778  ls -ltr
+  779  useradd -d /hdfc -s /bin/bash -g vashi -G mumbai raj
+  780  cat /etc/passwd
+  781  su raj
+  782  ls -ltr
+  783  setfacl -m u:chinky:rwx hdfc
+  784  su chinky
+  785  su raj
+  786  ls -ltr
+  787  history
+  788  useradd -d /boi -s /bin/bash -g tech -G hr -u 4000 megh
+  789  cat /etc/passwd
+  790  su megh
+  791  ls -ltr
+  792  useradd -d /boi -s /bin/bash -g tech -G hr pawan
+  793  cat /etc/passwd
+  794  su pawan
+  795  ls -ltr
+  796  chmod 770 boi
+  797  su pawan
+  798  useradd -d /boi -s /bin/bash -g tech -G hr shrawan
+  799  cat /etc/passwd
+  800*
+  801  cat /etc/passwd
+  802  ls -ltr
+  803  su shrawan
+  804  ch
+  805  chmod 700 boi
+  806  ls -ltr
+  807  setfacl -m u:pawan:rwx boi
+  808  su pawan
+  809  su shrawan
+  810  cd
+  811  history
+[root@localhost ~]#
+
+
+
+

@@ -1,0 +1,250 @@
+
+importing and including playbooks
+===================================
+
+it is very helpul for managing large number of tasks,if suppose if we create
+ some 300 tasks in one playbook it is difficult  to manage or it is difficult to find the errors so 
+what we will do here is we will break larger playbooks into small playbooks  and all these small playbooks
+ will be maintained by master playbook this can be done with the help of importing or including playbooks
+
+
+cd /ansible
+
+vim play1.yml
+
+---
+- name: test
+  hosts: servera.lab.example.com
+  tasks:
+  - name: creating a user
+    user:
+      name:  roy
+      state: present
+
+wq!
+
+
+vim play2.yml
+
+---
+- name: justplay
+  hosts: serverc.lab.example.com
+  tasks:
+  - name: creating a user
+    user:
+      name: bishnoy
+      state: present
+
+
+now im going to create a master playbook
+
+vim play3.yml
+
+---
+- name: masterplay
+  hosts: all
+  tasks:
+- name: import the playbook
+  import_playbook: play1.yml
+- name: import the plybook
+  import_playbook: play2.yml
+
+importing or including tasks
+==================================
+
+vim play1.yml
+
+- name: installing package
+  yum:
+    name: vsftpd
+    state: present
+
+- name: installing the service
+  service:
+    name: vsftpd
+    state: restarted
+
+
+
+vim play2.yml
+
+- name: removing the package
+  yum:
+    name: httpd
+    state: absent
+
+vim play3.yml
+
+---
+- name: testing
+  hosts: all
+  tasks:
+  - import_tasks: play1.yml
+  - import_tasks: play2.yml
+or 
+  - include_tasks: play1.yml
+  - include_tasks: play2.yml
+
+ 
+  
+roles
+======
+  
+larger playbooks are split into multiple files
+roles are the way to group multiple different task or complex tasks
+reuse of playbook code is easy with roles
+
+structure of roles
+
+ithub
+tree ithub
+
+defaults---main.yml
+|
+files
+|
+handlers----main.yml
+|
+meta--main.yml
+|
+tasks---main.yml
+|
+template
+|
+test
+|
+vars---main.yml
+
+trying to create one web page
+install the httpd
+start and enable the service
+cd /var/www/html ---index.html---</h1>welcome to pragathi<h1>
+add the service to the firewall
+reload the firewall
+copy the ip address and paste it in the url
+
+
+
+defaults: default variable for the role
+file: contains files to copy to destination
+handlers: based on notify do something specified
+meta: meta data contains complete information about the role including author license,platform and optical role dependencies
+tasks: list of tasks to be executed by the role
+template: template files to deploy
+tests: if u want additional verification of your build
+vars: other variables for the role
+
+creating role skeleton
+=========================
+the ansible-galaxy command line tool is used to manage ansible roles,including the creation of new roles
+the ansible-galaxy init is to create the directory structure for a new role
+
+configuration files for roles
+===============================
+cd /ansible
+mkdir /ansible/roles
+pwd /ansible
+#ansible-galaxy init /ansible/roles/ithub
+
+cd /ansible/roles/ithub
+
+tree ithub
+
+
+ithub
+tree ithub
+
+defaults---main.yml
+|
+files
+|
+handlers----main.yml
+|
+meta--main.yml
+|
+tasks---main.yml
+|
+template
+|
+test
+|
+vars---main.yml
+
+now go to the task directory and inside u have a main.yml file
+
+vim /tasks/main.yml
+
+---
+- name: installing apache server
+  yum:
+    name: httpd
+    state: present
+ 
+- name: starting the service
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+- name: copy index.html
+  copy:
+    src: index.html
+    dest: /var/www/html
+  notify:
+  - restartweb
+- name: adding service to the firewall
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: yes
+ 
+cd ..
+pwd /ansible/role/ithub
+
+cd files
+
+create a file
+vim index.html
+
+<h1>welcome to pragathi</h1>
+
+
+wq!
+
+cd ..
+pwd /ansible/role/ithub
+cd handlers
+vim main.yml
+---  
+- name: restartweb
+  service:
+    name: httpd
+    state: restarted
+~                                                                                                                  
+~                        
+pwd /ansible/role/ithub
+cd meta
+vim main.yml
+author: vignesh
+description: installing web page
+company: redhat
+
+cd ..
+pwd ---/ansible/
+#vim ithub.yml
+---
+- name: demoplay
+  hosts: all
+  roles:
+  - ithub
+wq!
+
+pwd /ansible/
+#ansibe-playbook ithub.yml
+
+
+
+
+
+                 
+ 

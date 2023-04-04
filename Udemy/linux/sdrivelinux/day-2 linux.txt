@@ -1,0 +1,320 @@
+[root@localhost ~]# ls ltr
+ls: cannot access ltr: No such file or directory
+[root@localhost ~]# ls -ltr
+total 4
+-rw-------. 1 root root 1420 Jan  2 13:50 anaconda-ks.cfg
+drwxr-xr-x. 2 root root    6 Jan  3 10:08 sun
+[root@localhost ~]# cd /usr
+[root@localhost usr]# ls -ltr
+total 88
+drwxr-xr-x.  2 root root     6 Nov  5  2016 games
+drwxr-xr-x.  2 root root     6 Nov  5  2016 etc
+drwxr-xr-x. 12 root root   131 Jan  2 13:47 local
+lrwxrwxrwx.  1 root root    10 Jan  2 13:47 tmp -> ../var/tmp
+drwxr-xr-x.  4 root root    34 Jan  2 13:47 src
+drwxr-xr-x.  3 root root    23 Jan  2 13:47 include
+dr-xr-xr-x. 27 root root  4096 Jan  2 13:47 lib
+drwxr-xr-x. 73 root root  4096 Jan  2 13:47 share
+drwxr-xr-x. 19 root root  4096 Jan  2 13:47 libexec
+dr-xr-xr-x.  2 root root 20480 Jan  2 13:47 bin
+dr-xr-xr-x.  2 root root 12288 Jan  2 13:47 sbin
+dr-xr-xr-x. 35 root root 20480 Jan  2 13:47 lib64
+[root@localhost usr]# cd
+[root@localhost ~]# clear
+[root@localhost ~]# history
+    1  cd /
+    2  ls
+    3  cd
+    4  ls
+    5  ls /home
+    6  ls /dev
+    7  clear
+    8  ls /usr
+    9*
+   10  clear
+   11  ls
+   12  mkdir sun
+   13  ls
+   14  ls -ltr
+   15  cd /usr
+   16  ls -ltr
+   17  ls
+   18  drwxr-xr-x.  2 root root     6 Nov  5  2016 games
+   19  cd
+   20  clear
+   21  ls ltr
+   22  ls -ltr
+   23  cd /usr
+   24  ls -ltr
+   25  cd
+   26  clear
+   27  history
+[root@localhost ~]#
+[root@localhost tom]# ls -ltr
+total 0
+drwxr-xr-x. 2 root root 6 Jan  3 10:44 dell
+[root@localhost tom]# su tom
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$
+[tom@localhost ~]$ exit
+exit
+[root@localhost tom]# clear
+[root@localhost tom]# cd /usr
+[root@localhost usr]# su tom
+[tom@localhost usr]$ cd
+[tom@localhost ~]$ cd /root
+bash: cd: /root: Permission denied
+[tom@localhost ~]$ exit
+exit
+[root@localhost usr]# passwd tom
+Changing password for user tom.
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[root@localhost usr]# cd
+[root@localhost ~]# su tom
+[tom@localhost root]$ ls
+ls: cannot open directory .: Permission denied
+[tom@localhost root]$ cd /var
+[tom@localhost var]$ ls
+adm    crash  empty  gopher    lib    lock  mail  opt       run    tmp
+cache  db     games  kerberos  local  log   nis   preserve  spool  yp
+[tom@localhost var]$ useradd jarry
+bash: /usr/sbin/useradd: Permission denied
+[tom@localhost var]$ exit
+exit
+[root@localhost ~]#
+[root@localhost ~]# useradd jerry
+[root@localhost ~]# su tom
+[tom@localhost root]$ ls
+ls: cannot open directory .: Permission denied
+[tom@localhost root]$ cd /home/jerry
+bash: cd: /home/jerry: Permission denied
+[tom@localhost root]$ cd
+[tom@localhost ~]$ ls
+dell
+[tom@localhost ~]$ su root
+Password:
+su: Authentication failure
+[tom@localhost ~]$ su root
+Password:
+[root@localhost tom]# ls
+dell
+[root@localhost tom]# su tom
+[tom@localhost ~]$ ls
+dell
+[tom@localhost ~]$ su jerry
+Password:
+su: Authentication failure
+[tom@localhost ~]$ exit
+exit
+[root@localhost tom]#
+[root@localhost tom]# passwd jerry
+Changing password for user jerry.
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[root@localhost tom]# su tom
+[tom@localhost ~]$ ls /home/jerry
+ls: cannot open directory /home/jerry: Permission denied
+[tom@localhost ~]$ su jerry
+Password:exit
+[jerry@localhost tom]$ ls
+ls: cannot open directory .: Permission denied
+[jerry@localhost tom]$ cd
+[jerry@localhost ~]$
+
+ ls
+    2  su tom
+    3  passwd jerry
+    4  su tom
+    5  cd
+    6  clear
+    7  ls -ltr
+    8  touch b1 b2 b3 b4
+    9  ls -ltr
+   10  touch m1
+   11  ls -ltr
+   12  ls -ltr /etc
+   13  ls -ltr
+   14  clear
+   15  ls -ltr /etc
+   16  clear
+   17  clear
+   18  cd /etc
+   19  ls -ltr
+   20  clear
+   21  ls -ltr |grep ^-
+   22  clear
+   23  ls -ltr |grep ^d
+   24  ls -ltr |grep ^d |wc -l
+   25  ls -ltr |grep ^- |wc -l
+   26  ls -ltr
+   27  ls -ltr group
+   28  ls -ltr |grep group
+   29  ls -ltr |grep resolv.conf
+   30  ls -ltr selinux
+   31  ls -ltr |grep selinux
+   32  cd selinux
+   33  ls
+   34  cd tmp
+   35  cd ..
+   36  cd selinux/tmp
+   37  history
+[root@localhost tmp]# clear
+  260  touch file1
+  261  ls
+  262  ls -ltr
+  263  touch /root/file1
+  264  ls
+  265  cat >> file1
+  266  ls
+  267  cat file1
+  268  cat >> file1
+  269  cat file1
+  270  cat > file1
+  271  cat file1
+  272  ls
+  273  cd
+  274  ls
+  275  ls -ltr
+  276  clear
+  277  vi file3
+  278  cat file3
+  279  history
+
+ vi file3
+  281  ls
+  282  vim file4
+  283  yum install vim
+  284  vim file5
+  285  vi /etc/fstab
+  286  vim /etc/fstab
+  287  clear
+  288  dd if=/dev/zero of=/root/storage bs=200M count=20
+  289  ls -ltr
+  290  ls -hltr
+  291  cd /dev
+  292  ls -ltr zero
+  293  cat zero
+  294  cp -pr zero  zero1
+  295  ls
+  296  ls -ltr zero1
+  297  chmod 777 zero1
+  298  cat zero1
+  299  ls -ltr
+  300  cd
+  301  dd if=/dev/zero of=/root/storage1 bs=50M count=1
+  302  ls -ltr
+  303  ls -hltr
+  304  cat storage1
+  305  vi storage1
+  306  clear
+  307  ls -ltr
+  308  rm -r storage1
+  309  rm -rf storage
+  310  ls -ltr
+  311  cat file5
+  312  cp file5 file5.copy
+  313  ls -ltr
+  314  cp -pr  file5 file5.copy1
+  315  ls -ltr
+  316  mv file.copy backup
+  317  mv file5.copy backup
+  318  ls
+  319  mv backup /home
+  320  ls
+  321  cd /home
+  322  ls
+  323  mv backup /root/backbackup
+  324  cd
+  325  ls
+  326  uname -a
+  327  clear
+  328  uname -a
+  329  uname -r
+  330  uname -s
+  331  uname -p
+  332  uname -o
+  333* cat /etc/redhat-release
+  334  hostnamectl
+  335  clear
+  336  cd /var
+  337  ls
+  338  cd log
+  339  ls
+  340  ls -ltr
+  341  cd audit/
+  342  pwd
+  343  cat >> hp
+  344  ls
+  345  cd
+  346  clear
+  347   find / -name hp
+  348  cd /home
+  349  ls
+  350  cd tom
+  351  touch hp
+  352   find / -name hp
+  353  cd /var
+  354  ls
+  355  cd log
+  356  ls
+  357  cd tuned/
+  358  ls
+  359  cat >> zebro.doc
+  360  cd
+  361  find / -name *.doc
+  362  cd /homw/tom
+  363  cd /home/tom
+  364  ls
+  365  dd if=/dev/zero of=/home/tom/vivo1 bs=10M count=1
+  366  ls -ltr
+  367  cd
+  368  find / -size 10M
+  369  ls
+  370  ls -ltr
+  371  clear
+  372  find / -perm 000
+  373  find / -perm 640
+  374  clear
+  375  ls -ltr
+  376  wc -l
+  377  wc -l anaconda-ks.cfg
+  378  wc -c anaconda-ks.cfg
+  379  wc -w anaconda-ks.cfg
+  380  head -20 anaconda-ks.cfg
+  381  tail -20 anaconda-ks.cfg
+  382  tail -5 anaconda-ks.cfg
+  383  history
+  384   head -20 anaconda-ks.cfg
+  385  history
+[root@localhost ~]# init 1
+init 2
+init 3
+runlevel
+init 5
+init 0
+
+
+
+
+
+
+

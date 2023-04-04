@@ -1,0 +1,297 @@
+ansible
+============
+ansible is an open source automation tool
+it is completely written in python,powershell,shell,ruby
+it is developed by michael dehaan in the year 2012
+
+minimum knowlege required
+==============================
+decent knowlege on linux and unix flavours
+recommended to have knowlege on virtualization /cloud
+it is good that if u have knowlege on scriptings python,shell,ruby,perl
+
+in earliers days
+====================
+1000 server machines install like wget and vim package start the service
+6x1000=6000 min /1hr ===100hrs
+
+scripting
+==========
+3min x1000=3000min=50hrs
+
+automation
+================
+configuration management tool
+===============================
+ansible
+puppet
+salt
+cf engine
+chef
+ in this the best tool is ansible
+why?
+it is opensource automation tool
+it is completely written python
+it is agentless
+it works in push mechansim whereas other tools are agented and works in pull mechanism
+
+important components of ansible
+=================================
+inventory-------------it will store all your managed host information
+ansible.cfg-------------this configuration file will define the connection between ur engine and ur node machines
+playbook----this is the place where we run all the scripts ----it is build in yaml language ----it will be in human readable 
+ad-hoc commands-------------it is basically used to run one single task at a time
+module ----------------it will define the commands
+priority of ansible.cfg
+========================
+/ansible.cfg-----------------1st priority-----------default directory 
+/root/.ansible.cfg------------2nd priority------------home directory
+/etc/ansible/ansible.cfg---------least priority------------global directory
+
+
+vim ansible.cfg
+================
+[defaults]--------------set default for ansible operation
+inventory=/home/raj/home/ansible/hosts
+remote_user=vignesh-----the name of the user to login as on managed hosts<client machine>
+ask_pass=false-----it will ask ssh pasword
+                      if u give false it will not ask password
+                          if u give true it will ask password
+
+[privilege_escalation]------------configures how ansible performs on managed hosts
+become=true--------------------it will help you to change it to the user who u have mentioned in remote_user
+become_user=root--------------------this user will only run task in your remote machine by default he should be a super user
+become_method=sudo-----------------which method he is going to change from remote user to become user
+become_ask_pass=false---------------asking password for become user so false means it will not ask any password
+wq!
+
+inventory
+=============
+a inventory is a collection of host of that ansible will manage
+there are of two types static inventory and dynamic inventory
+
+dynamic inventory
+======================
+basically it is used in cloud environment
+
+static inventory
+=================
+it is a text file where u will store ur managed host information
+
+vim hosts
+
+[db]----------------hostgroup--------------install wget and vim
+server1
+server2
+
+[add]----------------------install yum
+server3
+server4
+
+[minus]-----------------install autofs
+server4
+server5
+
+[viggy:children]----------------nested group--------it is a collection of host group bydefault suffix should be children
+db
+minus
+
+ansible viggy -m yum -a "name=vsftpd state=present"
+
+adhoc commands
+===============
+
+#ansible <hostgroup>  -m <module> -a "attributes" -i < particular inventory file>
+
+what and all ways we can mention the hostnames in adhoc commands
+==================================================================
+#ansible 192.168.88.129 -m <module> -a "attributes"
+#ansible all              "            "
+#ansible "*"              "              "
+#ansible s*               "               "
+#ansible server[a:c].lab.example.com "  "
+
+to list all modules
+===================
+#ansible-doc -l
+
+using adhoc creating files and directories
+============================================
+#ansible all -m file -a "dest=/f21  state=touch"
+to create a file
+#ansible all -m file -a "dest=/f21  state=absent"
+to delete a file
+#ansible all -m command -a "touch /f21"
+to create a file
+#ansible all -m file -a "dest=/d1 state=directory"
+creating a directory
+#ansible all -m file -a "dest=/d1 state=absent"
+to delete a file
+#ansible all -m file -a "dest=/f150 mode=600 owner=vignesh group=vignesh state=touch"
+to create a file with customized permissions
+#ansible all -m copy -a "src=/f100 dest=/"
+to copy a file
+#ansible all -m fetch -a "src=/f100 dest=/"
+/-----servera
+cd servera
+f100
+
+to download files from client machine------------------for downloading u should be a root user
+
+managing users and groups
+===============================
+#ansible all -m user -a "name=viggy uid=7010 shell=/bin/bash comment=admin home=/home/viggy state=present"
+creating a user 
+#ansible all -m user -a "name=viggy state=absent"
+to delete a user
+#ansible all -m group -a "name=pragathi state=present"
+creating a group
+#ansible all -m group -a "name=pragathi state=absent"
+to delete a group
+
+managing packages
+===================
+#ansible all -m yum -a "name=httpd state=present"
+to install the package
+#ansible all -m yum -a "name=httpd state=absent"
+to uninstall the package
+
+managing services
+====================
+#ansible all -m service -a "name=httpd state=started enabled=yes"
+to start and enable the service
+#ansible all -m service -a "name=httpd state=stopped enabled=no"
+to stop the service
+#ansible all -m service -a "name=httpd state=restarted enabled=yes"
+to restart service
+
+disk and memory
+==================
+#ansible all -m shell -a "df -Th"
+to see the filesystem information of the remote machines
+#ansible all -m shell -a "free -m"
+to see the primary memeory ans swap memory
+#ansible all -m shell -a "uptime"
+to see how long the remote machine is been on and load average
+#ansible all -m shell -a "ps -elf|wc -l"
+to see how much process are running in your remote machine
+
+
+installation part
+=====================
+try to have 3 machines
+
+
+lets assume workstation is my ansible engine
+serverc.lab.example.com is my ansible node
+serverd.lab.example.com is my ansible node
+
+
+in workstation
+====================
+ping www.google.com ---------------checking internet connectivity
+
+use this link
+#wget  https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+          install the extra package 
+then check where actually it is download if suppose it is downloaded under / means
+#rpm -ivh /epel-release-latest-8.noarch.rpm 
+once you install by default default epel repository will be created under /etc/yum.repos.d
+
+now install ansible 
+#yum install ansible
+
+once you install ansible by default python will be installed 
+
+check the python installed by giving
+#yum list installed platform-python
+
+check the ansible version
+==========================
+#ansible --version
+#python3 -- version
+
+you can check the ansible directory under /etc/ansible---------under this directory u will have two files and directory
+ now creating our own configuration file
+
+if suppose im a root user in ansible engine and im trying to give ssh connection to the remote machine
+so how will i do it 
+
+
+[root@workstation /]# ssh-keygen
+once key is generated
+[root@workstation /]#ssh-copy-id -i /root/.ssh/id_rsa.pub root@servera.lab.example.com
+
+[root@workstation /]#ssh-copy-id -i /root/.ssh/id_rsa.pub root@serverc.lab.example.com
+once the keys are generated to ur remote machine
+[root@workstation /]# mkdir ansible 
+cd ansible
+touch ansible.cfg
+touch hosts
+inside this host file mention the remote machine ip address
+vim hosts
+servera.lab.example.com
+serverc.lab.example.com 
+
+wq!
+
+vim ansible.cfg
+
+[defaults]
+inventory=/ansible/hosts
+remote_user=root
+ask_pass=false
+
+[privilege_escalation]
+become=false
+
+wq!
+
+
+now check it by
+#ansible all --list-hosts
+#ansible all -m ping               note :--when ur running these commands you should stay in /ansible as the pwd
+
+or  if suppose ur connecting to normal user in ansible node machine make sure that user be sudo user 
+=======================================================================================================
+in remote machines vim /etc/sudoers
+                   vignesh ALL=(ALL) NOPASSWD:ALL
+
+now suppose if im a normal user like raj in ansible engine
+[raj@workstation.lab.example.com ~]$ssh-keygen
+[raj@workstation.lab.example.com ~]$ssh-copy-id -i /home/raj/.ssh/id_rsa.pub vignesh@servera.lab.example.com
+
+[raj@workstation.lab.example.com]$ssh-copy-id -i /home/raj/.ssh/id_rsa.pub vignesh@serverc.lab.example.com
+
+now i have generated public keys on both side
+
+[raj@workstation.lab.example.com ~]$ mkdir /home/raj/ansible
+[raj@workstation.lab.example.com ~]$ cd /home/raj/ansible
+[raj@workstation.lab.example.com ansible]$ touch ansible.cfg
+[raj@workstation.lab.example.com ansible]$ touch hosts
+
+vim ansible.cfg
+===================
+[defaults]
+inventory=/home/raj/ansible/hosts
+remote_user=vignesh
+ask_pass=false
+
+[privilege_escalation]
+become=true
+become_user=root
+become_method=sudo
+become_ask_pass=false
+wq!
+
+vim hosts
+=============
+servera.lab.example.com
+serverc.lab.example.com
+now check the connection
+[raj@workstation.lab.example.com ansible]$ ansible all --list-hosts
+[raj@workstation.lab.example.com ansible]$ ansible all -m ping
+ 
+
+
+

@@ -1,0 +1,265 @@
+
+ansible vault
+=============
+ansible may need access to sensitive data such as password or api keys [application program interface] in order to configure
+remote users
+normally this information might be stored as plain text in inventory variables or ansible files
+
+but in this case,any user with access to the ansible files or a version control system which stores 
+the ansible files would have access to this sensitive data
+this is a security bug
+
+
+there are two primary ways to store this data more securely
+1 using ansible vault
+2 using kms[key management service] (3rd party)
+
+#ansible-vault create <newplaybook file name>
+command to create an encrypted file
+#ansible-vault encrypt play1.yml
+to encrypt a existing file it will ask you the password
+#ansible-vault decrypt play1.yml
+to decrypt the file
+#ansible-vault rekey play1.yml
+to rechange the password
+#ansible-vault view play1.yml
+to view an encrypted file
+#ansible-vault edit play1.yml
+to edit an encrypted file
+#ansible-playbook play1.yml --ask-vault-pass
+to run the encrypted playbook
+
+managing facts
+===============
+
+pedefined variables
+facts will fetch complete information about your ansible node machines
+using this facts we can use conditional tasks
+
+facts will be using setup module
+
+ansible <hostname> -m setup 
+
+fetch information like
+hostname
+kernel version
+network interfaces
+ip address
+available disk
+version of os
+
+
+o/p---------json format { 
+                       ansible_distribution="CentOS"
+                         }
+
+
+facts                                        variables
+ fqdn (fully qualified domain name)          ansible_fqdn
+ip address                                  ansible_default_ipv4.address
+
+to list nic interface                        ansible_interface
+to list out the partition                   ansible_device.sda.partition.sda1.size
+kernel version                              ansible_kernel
+
+
+
+---      
+- name: testing facts
+  hosts: servera.lab.example.com
+  tasks: 
+  - name: to know info
+    debug:
+      msg: |----it means separator  >-------single line
+        the fqdn is "{{ ansible_fqdn }}"
+        the default ip address "{{ ansible_default_ipv4.address }}"
+~                                                                                                                                           
+~        
+         
+filter facts
+=================
+filter can be used to
+
+only retrieve some particular information that you have mentioned in the variable
+
+ansible all -m setup -a "filter=ansible_fqdn"
+ansible all -m setup -a "filter=ansible_distribution"
+
+
+implementing task control
+===========================
+
+using loops we can save our time for creating same module tasks
+instead of writing each and every task having same module we will try to create loops so this will save our time and reduce 
+the steps in the playbook
+
+loops will be completely depended on with_items variable
+this with_items is ued as a label,listing the different items
+
+with_items will take reference from the jinja 2 keyword called "{{ item }}"
+
+ex:--- creating 3 different task using loops
+
+---
+- name: joy
+  hosts: all
+  tasks:
+  - name: package installation
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+    - httpd
+    - vsftpd
+    - autofs  
+
+
+declaring variable in a loop
+
+---
+- name: variable task
+  hosts: all
+  vars:
+    myuser:
+    - b
+    - a
+    - c
+  tasks:
+  - name: creating users
+    user:
+      name: "{{ item }}"
+      state: present
+    with_items: "{{ myuser }}"
+
+
+creating loops using hash or dictonaries
+=========================================
+it will help u out for creating complicated task like creating users into the group
+basically it will take reference item using item.<keyword> ex:--item.groups
+
+---
+- name: testing loop
+  hosts: all
+  tasks:
+  - name: adding user to the group
+    user:
+      name: "{{ item.name }}"
+      state: present
+      groups: "{{ item.groups }}"
+    with_items:
+    - name: a
+      groups: pragathi
+    - name: b
+      groups: pragathi 
+
+
+
+running the task conditionally
+====================================
+ansible can use conditional task to execute task or play when certains conditions are met
+
+conditional task syntax
+=========================
+it uses "when" statement to run the task conditionally
+
+when condition will take the value of the condition to test
+
+if the condition are meeting each other the task will run 
+if the conditions are not meeting each other the task will get skipped
+
+
+examples
+============
+
+operations                                     examples
+
+equal(value is a string)                      ansible_machine=="x86_64"
+equal(value is a numeric)                      max_memory==512
+less than                                      min_memory < 128
+greater than                                    min_memory > 128
+less than or equal to                           min_memory <= 128
+greater than or equal to                        min_memory >= 128
+not equal to                                      min_memory != 128
+boolean variable is true                        task will executed
+boolean variable is false                        task will not get executed
+first variables value is present
+as the second  variable list                      ansible_distribution in supported_distros
+and                                              ansible_distrubition="redhat" and kernel_version="4.0.4" 
+or                                                 ansible_distrubition="RedHat" or ansible_distrubition="Fedora"
+
+
+
+eg:----boolean conditions
+
+---
+- name: checking boolean
+  hosts: all
+  vars:
+    run_my_task: false
+  tasks:
+  - name: installing a package
+    yum:
+      name: httpd
+      state: present
+    when: run_my_task
+
+now the task will get skipped because the condition is false
+ 
+
+---
+- name: checking boolean
+  hosts: all
+  vars:
+    run_my_task: true
+  tasks:
+  - name: installing a package
+    yum:
+      name: httpd
+      state: present
+    when: run_my_task
+
+ex:--2 
+using or operation
+
+
+---
+- name: checking boolean
+  hosts: all
+  tasks:
+  - name: installing a package
+    yum:
+      name: httpd
+      state: present
+    when: ansible_distribution == "RedHat" or ansible_distribution == "Fedora"
+
+ex:--3
+using and operation
+
+
+---
+- name: checking boolean
+  hosts: all
+  tasks:
+  - name: installing a package
+    yum:
+      name: httpd
+      state: present
+    when: ansible_distribution == "RedHat" and ansible_distribution_version == "8.0"
+
+ex:---4 
+in operation
+
+---
+- name: demostrating in task 
+  hosts: all
+  vars:
+    ansible_distribution: RedHat
+    supported_distros: 
+    - CentOS
+    - RedHat
+  tasks:
+  - name: installing package
+    yum:
+       name: git
+       state: present
+    when: ansible_distribution in supported_distros  

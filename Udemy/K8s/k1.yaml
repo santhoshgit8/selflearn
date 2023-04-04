@@ -1,0 +1,12 @@
+apiVersion:v1
+Kind: pod
+metadata:
+  name: podname
+   namespace: namesapcename
+spec:
+   containers:
+   -  name : containername
+      image: nginx
+      ports:
+       -   containerport : 80
+ 

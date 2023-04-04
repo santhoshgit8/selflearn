@@ -1,0 +1,466 @@
+ cat /etc/passwd
+  580  userdel -rf megh
+  581  userdel -rf shraval
+  582  userdel -rf shravan
+  583  userdel -rf shrawan
+  584  userdel -r shrawan
+  585  cat /etc/paaswd
+  586  cat /etc/passwd
+  587  su pawan
+  588  groupdel hr
+  589  groupdel tech
+  590  usermod -g devops sara
+  591  groupdel tech
+  592  usermod -g devops pawan
+  593  groupdel tech
+  594  clear
+  595  cd
+  596  nmtui
+  597  ip addr
+  598  nmtui
+  599  ip addr
+  600  nmtui
+  601  ipaddr
+  602  ip addr
+  603  nmtui
+  604  ip addr
+  605  clear
+  606  cd /etc/sysconfig/network-scripts/
+  607  ls
+  608  cd
+  609  cd /etc/sysconfig/network-scripts/
+  610  ls
+  611  vi ifcfg-enp0s3
+  612  ifdown enp0s3
+  613  ifup enp0s3
+  614  ip addr
+  615  nmtui
+  616  ls
+  617  cp -pr ifcfg-enp0s3 ifcfg-enp0s3.copy
+  618  ls
+  619  vi ifcfg-enp0s3
+  620  ifdown enp0s3
+  621  ifup enp0s3
+  622  ip addr
+  623  nmtui
+  624  ip addr
+  625  vi ifcfg-enp0s3
+  626  clear
+  627  cd
+  628  nmcli show con
+  629  nmcli con show
+  630  nmcli con modify enp0s3 ipv4.addresses '50.0.0.10/8 50.0.0.1' ipv4.metho.manual connection.autoconnect yes
+  631  nmcli con modify enp0s3 ipv4.addresses '50.0.0.10/8 50.0.0.1' ipv4.method.manual connection.autoconnect yes
+  632  nmcli con modify enp0s3 ipv4.addresses '50.0.0.10/8  50.0.0.1' ipv4.method.manual connection.autoconnect yes
+  633  nmcli con modify enp0s3 ipv4.address '50.0.0.10/8  50.0.0.1' ipv4.method.manual connection.autoconnect yes
+  634  nmcli con modify enp0s3 ipv4.address 50.0.0.10/8  ipv4.gateway 50.0.0.1 ipv4.method.manual connection.autoconnect yes
+  635  clearr
+  636  clear
+  637  nmcli con modify enp0s3  ipv4.address 50.0.0.8/8 ipv4.gateway 50.0.0.1 ipv4.method manual connection.autoconnect yes
+  638  nmcli con down ep0s3
+  639  nmcli con down enp0s3
+  640  nmcli con up enp0s3
+  641  history
+  642  nmcli con modify enp0s3  ipv4.address 80.0.0.8/8 ipv4.gateway 80.0.0.1 ipv4.method manual connection.autoconnect yes
+  643  nmcli con down enp0s3
+  644  nmcli con up enp0s3
+  645  ip addr
+  646  nmcli con modify enp0s3 ipv4.method auto connection.autoconnect yes
+  647  nmcli con down enp0s3
+  648  nmcli con up enp0s3
+  649  ip addr
+  650  nmcli con modify enp0s3 ipv4.method auto connection.autoconnect yes
+  651  nmcli con down enp0s3
+  652  nmcli con up enp0s3
+  653  ip addr
+  654  nnmtui
+  655  nmtui
+  656  hi
+  657  history
+  658  init 0
+  659  cat  /etc/group
+  660  cat /etc/group
+  661   root rootwheel:x:10:
+  662  cdrom:x:11:
+  663  mail:x:12:postfix
+  664  man:x:15:
+  665  dialout:x:18:
+  666  floppy:x:19:
+  667  games:x:20:
+  668  tape:x:30:
+  669  video:x:39:
+  670  ftp:x:50:
+  671  lock:x:54:
+  672  audio:x:63:
+  673  nobody:x:99:
+  674  users:x:100:
+  675  utmp:x:22:
+  676  utempter:x:35:
+  677  ssh_keys:x:999:
+  678  input:x:998:
+  679  systemd-journal:x:190:
+  680  systemd-network:x:192:
+  681  dbus:x:81:
+  682  polkitd:x:997:
+  683  postdrop:x:90:
+  684  postfix:x:89:
+  685  sshd:x:74:
+  686  tom:x:1000:
+  687  jerry:x:1001:
+  688  natasha:x:1002:
+  689  harry:x:1003:
+  690  sara:x:1004:
+  691  hr:x:1005:megh,pawan,shrawan
+  692  tech:x:1006:
+  693  devops:x:1007:sara
+  694  krupa:x:1008:
+  695  vashi:x:1009:
+  696  mumbai:x:1010:pinky,chinky,raj
+  697  [root@localhost ~]# cat /etc/group
+  698  root:x:0:
+  699  bin:x:1:
+  700  daemon:x:2:
+  701  sys:x:3:
+  702  adm:x:4:
+  703  tty:x:5:
+  704  disk:x:6:
+  705  lp:x:7:
+  706  mem:x:8:
+  707  kmem:x:9:
+  708  wheel:x:10:
+  709  cdrom:x:11:
+  710  mail:x:12:postfix
+  711  man:x:15:
+  712  dialout:x:18:
+  713  floppy:x:19:
+  714  games:x:20:
+  715  tape:x:30:
+  716  video:x:39:
+  717  ftp:x:50:
+  718  lock:x:54:
+  719  audio:x:63:
+  720  nobody:x:99:
+  721  users:x:100:
+  722  utmp:x:22:
+  723  utempter:x:35:
+  724  ssh_keys:x:999:
+  725  input:x:998:
+  726  systemd-journal:x:190:
+  727  systemd-network:x:192:
+  728  dbus:x:81:
+  729  polkitd:x:997:
+  730  postdrop:x:90:
+  731  postfix:x:89:
+  732  sshd:x:74:
+  733  tom:x:1000:
+  734  cat /etc/gwheel:x:10:
+  735  cdrom:x:11:
+  736  mail:x:12:postfix
+  737  man:x:15:
+  738  dialout:x:18:
+  739  floppy:x:19:
+  740  games:x:20:
+  741  tape:x:30:
+  742  video:x:39:
+  743  ftp:x:50:
+  744  lock:x:54:
+  745  audio:x:63:
+  746  nobody:x:99:
+  747  users:x:100:
+  748  utmp:x:22:
+  749  utempter:x:35:
+  750  ssh_keys:x:999:
+  751  input:x:998:
+  752  systemd-journal:x:190:
+  753  systemd-network:x:192:
+  754  dbus:x:81:
+  755  polkitd:x:997:
+  756  postdrop:x:90:
+  757  postfix:x:89:
+  758  sshd:x:74:
+  759  tom:x:1000:
+  760  jerry:x:1001:
+  761  natasha:x:1002:
+  762  harry:x:1003:
+  763  sara:x:1004:
+  764  hr:x:1005:megh,pawan,shrawan
+  765  tech:x:1006:
+  766  devops:x:1007:sara
+  767  krupa:x:1008:
+  768  vashi:x:1009:
+  769  mumbai:x:1010:pinky,chinky,raj
+  770  [root@localhost ~]# cat /etc/group
+  771  root:x:0:
+  772  bin:x:1:
+  773  daemon:x:2:
+  774  sys:x:3:
+  775  adm:x:4:
+  776  tty:x:5:
+  777  disk:x:6:
+  778  lp:x:7:
+  779  mem:x:8:
+  780  kmem:x:9:
+  781  wheel:x:10:
+  782  cdrom:x:11:
+  783  mail:x:12:postfix
+  784  man:x:15:
+  785  dialout:x:18:
+  786  floppy:x:19:
+  787  games:x:20:
+  788  tape:x:30:
+  789  video:x:39:
+  790  ftp:x:50:
+  791  lock:x:54:
+  792  audio:x:63:
+  793  nobody:x:99:
+  794  users:x:100:
+  795  utmp:x:22:
+  796  utempter:x:35:
+  797  ssh_keys:x:999:
+  798  input:x:998:
+  799  systemd-journal:x:190:
+  800  systemd-network:x:192:
+  801  dbus:x:81:
+  802  polkitd:x:997:
+  803  postdrop:x:90:
+  804  postfix:x:89:
+  805  sshd:x:74:
+  806  tom:x:1000:
+  807  jerry:x:1001:
+  808  natasha:x:1002:
+  809  harry:x:1003:
+  810  sara:x:1004:
+  811  hr:x:1005:megh,pawan,shrawan
+  812  tech:x:1006:
+  813  devops:x:1007:sara
+  814  krupa:x:1008:
+  815  vashi:x:1009:
+  816  mumbai:x:1010:pinky,chinky,raj
+  817  [root@localhost ~]#  root rootwheel:x:10:
+  818  -bash: root: command not found
+  819  [root@localhost ~]# cdrom:x:11:
+  820  -bash: cdrom:x:11:: command not found
+  821  [root@localhost ~]# mail:x:12:postfix
+  822  -bash: mail:x:12:postfix: command not found
+  823  [root@localhost ~]# man:x:15:
+  824  -bash: man:x:15:: command not found
+  825  [root@localhost ~]# dialout:x:18:
+  826  -bash: dialout:x:18:: command not found
+  827  [roowheel:x:10:
+  828  cdrom:x:11:
+  829  mail:x:12:postfix
+  830  man:x:15:
+  831  dialout:x:18:
+  832  floppy:x:19:
+  833  games:x:20:
+  834  tape:x:30:
+  835  video:x:39:
+  836  ftp:x:50:
+  837  lock:x:54:
+  838  audio:x:63:
+  839  nobody:x:99:
+  840  users:x:100:
+  841  utmp:x:22:
+  842  utempter:x:35:
+  843  ssh_keys:x:999:
+  844  input:x:998:
+  845  systemd-journal:x:190:
+  846  systemd-network:x:192:
+  847  dbus:x:81:
+  848  polkitd:x:997:
+  849  postdrop:x:90:
+  850  postfix:x:89:
+  851  sshd:x:74:
+  852  tom:x:1000:
+  853  jerry:x:1001:
+  854  natasha:x:1002:
+  855  harry:x:1003:
+  856  sara:x:1004:
+  857  hr:x:1005:megh,pawan,shrawan
+  858  tech:x:1006:
+  859  devops:x:1007:sara
+  860  krupa:x:1008:
+  861  vashi:x:1009:
+  862  mumbai:x:1010:pinky,chinky,raj
+  863  [root@localhost ~]# cat /etc/group
+  864  root:x:0:
+  865  bin:x:1:
+  866  daemon:x:2:
+  867  sys:x:3:
+  868  adm:x:4:
+  869  tty:x:5:
+  870  disk:x:6:
+  871  lp:x:7:
+  872  mem:x:8:
+  873  kmem:x:9:
+  874  wheel:x:10:
+  875  cdrom:x:11:
+  876  mail:x:12:postfix
+  877  man:x:15:
+  878  dialout:x:18:
+  879  floppy:x:19:
+  880  games:x:20:
+  881  tape:x:30:
+  882  video:x:39:
+  883  ftp:x:50:
+  884  lock:x:54:
+  885  audio:x:63:
+  886  nobody:x:99:
+  887  users:x:100:
+  888  utmp:x:22:
+  889  utempter:x:35:
+  890  ssh_keys:x:999:
+  891  input:x:998:
+  892  systemd-journal:x:190:
+  893  systemd-network:x:192:
+  894  dbus:x:81:
+  895  polkitd:x:997:
+  896  postdrop:x:90:
+  897  postfix:x:89:
+  898  sshd:x:74:
+  899  tom:x:1000:
+  900  jerry:x:1001:
+  901  natasha:x:1002:
+  902  harry:x:1003:
+  903  sara:x:1004:
+  904  hr:x:1005:megh,pawan,shrawan
+  905  tech:x:1006:
+  906  devops:x:1007:sara
+  907  krupa:x:1008:
+  908  vashi:x:1009:
+  909  mumbai:x:1010:pinky,chinky,raj
+  910 
+  920  cat /etc/group
+  921  usermod -G wheel jerry
+  922  cat /etc/group
+  923  su jerry
+  924  cat /etc/group
+  925  top
+  926  clear
+  927  ps -aux
+  928  ps -eaf
+  929  ps x -l
+  930  ps -aux
+  931  kill -15 1550
+  932  ps -aux
+  933  kill -9 1625
+  934  ps -aux
+  935  kill -STOP 1628
+  936  ps -aux
+  937  kill -9 1628
+  938  kill -9 1630
+  939  ps -aux
+  940  pkill -KILL -t pts/1
+  941  history
+[root@server1 ~]#
+
+940  pkill -KILL -t pts/1
+  941  history
+  942  ps x -l
+  943  renice -5 1663
+  944  renice -10 1663
+  945  ps x -l
+  946  clear
+  947  ps x -l
+  948  kill -9 1663
+  949  ps x -l
+  950  clear
+  951  free -m
+  952  free -h
+  953  yum install sysstat
+  954  clear
+  955  vmstat
+  956  iostat
+  957  iostat -c
+  958  iostat -d
+  959  iostat -p sda
+  960  lsblk
+  961  yum install net-tools
+  962  ifconfig
+  963  netstat -nltp
+  964  yum install tcpdump
+  965  clear
+  966  tcpdump -i enp0s3
+  967  tcpdump -i enp0s3 -c 5
+  968  ipconfig
+  969  ifconfig
+  970  tcpdump -i enp0s3 -c 5
+  971  ipconfig
+  972  tcpdump -i enp0s3 -c 5
+  973  tcpdump -i enp0s3
+  974  clear
+  975  yum info vim
+  976  yum install vim
+  977  yum info vim
+  978  yum install httpd
+  979  yum info httpd
+  980  which httpd
+  981  yum remove httpd
+  982  which httpd
+  983  yum info httpd
+  984  which httpd
+  985  clear
+  986  wget https://code.jquery.com/jquery-3.6.0.min.js
+  987  yum install wget
+  988  wget https://code.jquery.com/jquery-3.6.0.min.js
+  989  ls
+  990  clear
+  991  fdisk -l
+  992  lsblk
+  993  clear
+  994  fdisk -l
+  995  fdisk dev/sda
+  996  fdisk /dev/sda
+  997  partprobe
+  998  fdisk -l
+  999  fdisk /dev/sda
+ 1000  partprobe
+ 1001  fdisk -l
+ 1002  mkfs.ext4 /dev/sda5
+ 1003  mkdir /vivo
+ 1004  mount /dev/sda5 /vivo
+ 1005  df -h
+ 1006  cd /vivo
+ 1007  touch t1t2 t3
+ 1008  ls
+ 1009  cd
+ 1010  df -h
+ 1011  df -Th
+ 1012  vi /etc/fstab
+ 1013  vim /etc/fstab
+ 1014  clear
+ 1015  fdisk -l
+ 1016  fdisk /dev/sda
+ 1017  partprobe
+ 1018  fdisk -l
+ 1019  mkfs.xfs /dev/sda6
+ 1020  mkdir /nokia
+ 1021  df -h
+ 1022  vim /etc/fstab
+ 1023  df -h
+ 1024  mount -a
+ 1025  df -h
+ 1026  vim /etc/fstab
+ 1027  fdisk -l
+ 1028  df -h
+ 1029  umount /nokia
+ 1030  df -h
+ 1031  fdisk /dev/sda
+ 1032  partprobe
+ 1033  fdisk -l
+ 1034  fdisk /dev/sda
+ 1035  partprobe
+ 1036  fdisk -l
+ 1037  free -m
+ 1038  swapon /dev/sda6
+ 1039  free -m
+ 1040  mkswap /dev/sda6
+ 1041  swapon /dev/sda6
+ 1042  free -m
+ 1043  swapoff /dev/sda6
+ 1044  free -m
+ 1045  swapon /dev/sda6
+ 1046  vim /etc/fstab
+ 1047  history
+[root@server1 ~]#
+

@@ -1,0 +1,105 @@
+cat /etc/group
+  497  groupadd hr
+  498    753  groupadd tech
+  499    754  groupadd devops
+  500  cat /etc/group
+  501  cat /etc/passwd
+  502  usermod -g tech sara
+  503  cat /etc/passwd
+  504  usermod -G devops sara
+  505  cat /etc/passwd
+  506  su sara
+  507  usermod -d /yesbank sara
+  508  cat /etc/passwd |grep sara
+  509  cd /
+  510  ls
+  511  su sara
+  512  cp -a /etc/skel /yesbank
+  513  ls
+  514  su sara
+  515  cat /etc/passwd
+  516  history
+ cat /etc/group
+  497  groupadd hr
+  498    753  groupadd tech
+  499    754  groupadd devops
+  500  cat /etc/group
+  501  cat /etc/passwd
+  502  usermod -g tech sara
+  503  cat /etc/passwd
+  504  usermod -G devops sara
+  505  cat /etc/passwd
+  506  su sara
+  507  usermod -d /yesbank sara
+  508  cat /etc/passwd |grep sara
+  509  cd /
+  510  ls
+  511  su sara
+  512  cp -a /etc/skel /yesbank
+  513  ls
+  514  su sara
+  515  cat /etc/passwd
+  516  history
+  517  clear
+  518  history
+  519  usermod -d /bom  sara
+  520  ls
+  521  cat /etc/passwd |grep sara
+  522  su sara
+  523  cp -a /etc/skel /yesbank
+  524  cp -a /etc/skel /bom
+  525  su sara
+  526  cd
+  527  cat /etc/passwd |grep sara
+  528  usermod -s /sbin/nologin sara
+  529  cat /etc/passwd |grep sara
+  530  su sara
+  531  cat /etc/passwd |grep sara
+  532  cat /etc/passwd
+  533  su megh
+  534  cd /boi
+  535  ls -ltr
+  536  touch dell
+  537  ls -ltr
+  538  chown  harry:hr lenovo
+  539  ls -ltr
+  540  chown  harry:devops lenovo
+  541  ls -ltr
+  542  chown  root:devops lenovo
+  543  ls -ltr
+  544  cd
+  545  clear
+  546  ls -ltr
+  547   rm -rf opra
+  548  ls -ltr
+  549  cat >> dell
+  550  ls -ltr
+  551  chown harry:devops dell
+  552  ls -ltr
+  553  chgrp -R tech dell
+  554  clear
+  555  ls -ltr
+  556  cat /etc/passwd
+  557  su harry
+  558  passwd harry
+  559  su harry
+  560  vi /etc/sudoers
+  561  cat /etc/passwd
+  562  passwd jerry
+  563  su harry
+  564  
+  565  
+  566  cat /etc/shadow |grep harry
+  567  passwd -d
+  568  harry
+  569  passwd -d harry
+  570  cat /etc/shadow |grep harry
+  571  cd /home
+  572  ls
+  573  userdel -rf tom
+  574  ls
+  575  cat /etc/passwd
+  576  useradd -u 1000 sita
+  577  cat /etc/passwd |grep sita
+  578  history
+[root@localhost home]#

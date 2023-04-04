@@ -1,0 +1,28 @@
+#!/bin/bash
+sudo apt-get update
+sudo apt install openjdk-11-jdk -y
+curl -fsSL https://pkg.jenkins.io/debian/jenkins.io.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins -y
+
+
+
+sonarqube token
+59c6124583558a7cc1eda98cee383af0e5cb7589
+
+slacktoken
+k0cp4RC5VTdvNYu0QKxy19Ce
+
+awsacceskey
+AKIAVPHQXL2RGXHDNY7T
+accesid
+CeSJIdt3QulIda9MnSjujhnJMYiH3LvASzicorP9
+
+
+
+    
+    

@@ -1,0 +1,212 @@
+
+
+custom facts
+=============
+
+other than default facts if u want to more information about your ansible nodes then you have to create custom facts
+
+why custom facts
+=================
+to get userdefined required facts
+ex:--- i need to find the git version or httpd version all the managed node
+to identify prod/nonprod/qa servers/dev
+
+creating custom facts
+=========================
+step 1:---create /etc/ansible/facts.d on my managed nodes
+step2:-----inside facts.d directory creating custom file note:---the file should have an extension as .fact
+step3:--- the output of the file should be in json format
+step4:------ bydefault the file should have execute permission
+
+ vim /etc/ansible/facts.d/git.fact
+
+#!/bin/bash
+git_ver=$(git --version | awk '{print $3}')
+httpd_ver=$(httpd -version | awk 'NR==1 {  print $3}')
+
+
+ cat << FUN
+{ "Git_version": "$git_ver",   -----------                  mention the comma this was the error
+  "httpd_version": "$httpd_ver"
+}
+FUN
+
+once u have created ,run the script
+
+check it in your ansible engine
+#ansible all -m setup | grep -i git_ver
+#ansible all -m setup -a "filter=ansible_local"
+ to get only ur custom facts
+
+
+ handlers
+============
+handlers are task that notify when the task changes something on a managed hosts
+
+handlers are used for rebooting the host and restarting the services
+
+
+why?
+so generally if suppose if i have installed the package for the first and im restarting the service ...
+so if it is for the first time it is fine and good now suppose if i run the same task already the package has been installed
+ and restarted ,now if u run once again it is going to restart the service so it giving load to the service to avoid this  
+we use handlers .handlers notify and check if it is anychanges happen to the task then only it is going to run the handlers
+ if no changes it is not going to run...
+
+---
+- name: demo task
+  hosts: serverc.lab.example.com
+  tasks:
+  - name: installing the package
+    yum:
+      name: vsftpd
+      state: present
+    notify:
+    - restarting the service
+  handlers:
+  - name: restarting the service
+    service:
+      name: vsftpd
+      state: restarted
+~                                                                                                                                           
+~  
+
+task  failure
+================
+normally if a task fails rest all the task will get aborted to avoid this we are using ignore_errors
+
+basically ignore_errors will override and ignore the error task and it will start to run rest of the other task
+
+                   ---  
+- name: demo task
+  hosts: serverc.lab.example.com
+  tasks:
+  - name: installing the package
+    yum:
+      name: nopkg
+      state: present
+    ignore_errors: yes
+  - name: creating a file
+    file:
+      dest: /f40
+      state: touch
+
+forcing execution of handlers after task failure
+=====================================================
+
+---    
+- name: demo task
+  hosts: serverc.lab.example.com
+  force_handlers: yes
+  tasks:
+  - name: creating a file
+    file:
+      dest: /f25
+      state: touch
+    notify:
+    - restart the service
+  - name: wrong pkg
+    yum:
+      name: nopkg
+      state: present
+  handlers:
+  - name: restart the service
+    service:
+      name: vsftpd
+      state: restarted
+~                         
+
+ansible blocks and error handling
+===================================
+block:------- it is collection of multiple tasks
+rescue:---it defines the task to run if the task defined in the block is failed
+always:---it defines the task that is going to run independently of success or failure of task defined in 
+the block and rescue classes
+
+ex:--- for blocks
+
+---  
+- name: demo task
+  hosts: serverc.lab.example.com
+  tasks:
+  - block:
+    - name: installing httpd package
+      yum:
+        name: httpd
+        state: present
+    - name: installing wrong package
+      yum:
+        name: nopkg
+        state: present
+    - name: creating a file
+      file:
+        dest: /ff
+        state: touch
+    ignore_errors: yes
+                           
+
+
+---  
+- name: demo task
+  hosts: serverc.lab.example.com
+  tasks:
+  - block:
+    - name: installing httpd package
+      yum:
+        name: httpd
+        state: present
+    - name: installing vsftpd package
+      yum:
+        name: vsftpd
+        state: present
+    - name: creating a file
+      file:
+        dest: /ff
+        state: touch
+    when: ansible_distribution == "RedHat"
+                        
+
+
+blocks always and rescue
+=============================
+---
+- name: demoplay
+  hosts: all
+  tasks:
+  - block:
+    - name: installing nopkg
+      yum:
+        name: nopkg
+        state: present
+    rescue:
+    - debug:
+        msg: "this will not execute"
+    always:
+    - debug:
+        msg: "this will always executes"
+  
+jinja2 templating
+===================
+
+most powerful way to manage the file is to template them,basically jinja2 will be 
+using template as the module whereas this template  will customize for managed host where the file is deployed
+
+for a creating a jinja2 file by default the file should have the extension as .j2
+
+cd /ansible
+vim information.j2
+
+hostname is "{{ ansible_hostname }}"
+fqdn is "{{ ansible_fqdn }}"
+
+vim jinja.yml
+
+---
+- name: testing jinja
+  hosts: all
+  tasks:
+  - name: to get the host information
+    template:
+      src: /ansible/informtion.j2
+      dest: /system.txt
+           
